@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Daria",
+    "avatar": "./img.jpg",
+    "favId": "[098, 213, 642, 2232]",
+    "userId": "123"
+  },
+  {
+    "name": "Łukasz",
+    "avatar": "./img.jpg",
+    "favId": "[023238, 2393, 342342, 3422]",
+    "userId": "456"
+  },
+  {
+    "name": "Jurek",
+    "avatar": "./img.jpg",
+    "favId": "[02348, 23483, 3482, 23412]",
+    "userId": "789"
+  },
+  {
+    "name": "Kuba",
+    "avatar": "./img.jpg",
+    "favId": "[02348, 2433, 33422, 21234]",
+    "userId": "1011"
+  },
+  {
+    "name": "Brajanek",
+    "avatar": "./img.jpg",
+    "favId": "[09234, 23483, 54682, 2782]",
+    "userId": "1213"
+  }
+]
