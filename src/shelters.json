@@ -1,13 +1,16 @@
-[{
+[
+    {
     "id" : 1,
     "name" : "Ciapkowo",
     "address" : {
         "city" : "Gdynia",
         "street" : "Świętojańska",
+        "regionId": 0,
         "streetNumber": 12,
         "postCode" : 81001
     },
     "animalsId" : [1, 2, 3],
     "avatar": "./img/shelters/1/1.jpg",
     "img": ["./img/shelters/1/1.jpg", "./img/shelters/1/2.jpg"]
-}]
+    }
+]

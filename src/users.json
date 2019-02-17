@@ -5,6 +5,7 @@
     "login": "daria",
     "password": "daria123",
     "avatar": "./img/users/1.jpg",
-    "favId": [1]
+    "favAnimalId": [1],
+    "createdAnimal":
   }
 ]
