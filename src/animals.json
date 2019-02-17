@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "name": "Azor",
+        "kindId": 0,
+        "breadId": 0,
+        "metrics": {
+            "sizeId": 0,
+            "sexId":0,
+            "age": 6
+        },
+        "description": "Azor to spokojny pies",
+        "shelterId": 1,
+        "img": "./img/animal/1.jpg"
+    }
+]
