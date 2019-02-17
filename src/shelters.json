@@ -1,11 +1,11 @@
 [{
-    "id" : "1",
+    "id" : 1,
     "name" : "Ciapkowo",
     "address" : {
         "city" : "Gdynia",
         "street" : "Świętojańska",
-        "streetNumber": "12",
-        "postCode" : "00-001"
+        "streetNumber": 12,
+        "postCode" : 81001
     },
     "animalsId" : [1, 2, 3]
 }]
