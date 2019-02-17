@@ -1,5 +1,5 @@
 [{
-    "id" : "1",
+    "id" : 1,
     "name" : "Ciapkowo",
     "address" : {
         "city" : "Gdynia",
@@ -7,5 +7,7 @@
         "streetNumber": "12",
         "postCode" : "00-001"
     },
-    "animalsId" : [1, 2, 3]
+    "animalsId" : [1, 2, 3],
+    "avatar": "./img/shelters/1/1.jpg",
+    "img": ["./img/shelters/1/1.jpg", "./img/shelters/1/2.jpg"]
 }]
