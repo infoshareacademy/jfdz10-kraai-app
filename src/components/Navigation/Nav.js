@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Router } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import Logo from "../../img/logo.png";
+import Test from "./Test.js";
 
 export default class Nav extends Component {
   state = {};
@@ -12,35 +13,46 @@ export default class Nav extends Component {
     const { activeItem } = this.state;
 
     return (
-      <Menu stackable>
-        <Menu.Item>
-          <img src={Logo} alt="Logo" />
-        </Menu.Item>
+      <Router>
+        <Menu stackable>
+          <Link className="item" to="/szukaj">
+            <img src={Logo} alt="Logo" />
+          </Link>
 
-        <Menu.Item
-          name="features"
-          active={activeItem === "features"}
-          onClick={this.handleItemClick}
-        >
-          Features
-        </Menu.Item>
+          <Link
+            className="item"
+            to="/szukaj"
+            name="features"
+            active={activeItem === "features"}
+            onClick={this.handleItemClick}
+          >
+            Szukaj
+          </Link>
 
-        <Menu.Item
-          name="testimonials"
-          active={activeItem === "testimonials"}
-          onClick={this.handleItemClick}
-        >
-          Testimonials
-        </Menu.Item>
+          <Link
+            className="item"
+            to="/szukaj"
+            name="testimonials"
+            active={activeItem === "testimonials"}
+            onClick={this.handleItemClick}
+          >
+            Tinder mode
+          </Link>
 
-        <Menu.Item
-          name="sign-in"
-          active={activeItem === "sign-in"}
-          onClick={this.handleItemClick}
-        >
-          Sign-in
-        </Menu.Item>
-      </Menu>
+          <Link
+            className="item"
+            to="/szukaj"
+            name="sign-in"
+            active={activeItem === "sign-in"}
+            onClick={this.handleItemClick}
+          >
+            Profil
+          </Link>
+          <Route exact path="/szukaj" component={Test} />
+          <Route path="/tinder-mode" component={Test} />
+          <Route path="/zaloguj" component={Test} />
+        </Menu>
+      </Router>
     );
   }
 }
