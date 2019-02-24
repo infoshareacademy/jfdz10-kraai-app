@@ -4,8 +4,8 @@
     "name": "Daria",
     "login": "daria",
     "password": "daria123",
-    "avatar": "./img/users/1.jpg",
+    "avatar": "../img/1.jpg",
     "favAnimalId": [1],
-    "createdAnimal":
+    "createdAnimalId": [1]
   }
 ]

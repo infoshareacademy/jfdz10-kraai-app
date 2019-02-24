@@ -6,12 +6,12 @@
         "breadId": 0,
         "metrics": {
             "sizeId": 0,
-            "sexId":0,
+            "sexId": 0,
             "age": 6
         },
         "description": "Azor to spokojny pies",
         "shelterId": 1,
-        "avatar": "./img/animals/1/1.jpg",
-        "img": ["./img/animals/1/1.jpg", "./img/animals/1/2.jpg"]
+        "avatar": "../img/1/1.jpg",
+        "img": ["../img/1/1.jpg", "../img/1/2.jpg"]
     }
 ]
