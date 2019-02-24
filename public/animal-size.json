@@ -1,13 +1,16 @@
 [
     {
+        "id": 1,
         "pl": "Mały",
         "en": "Small"
     },
     {
+        "id": 2,
         "pl": "Średni",
         "en": "Medium"
     },
     {
+        "id": 3,
         "pl": "Duży",
         "en": "Large"
     }

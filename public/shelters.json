@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "name": "Ciapkowo",
+    "address": {
+      "city": "Gdynia",
+      "street": "Świętojańska",
+      "region": "Pomorskie",
+      "streetNumber": 12,
+      "postCode": 81001
+    },
+    "animalsId": [1],
+    "avatar": "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+    "img": [
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Schronisko 2",
+    "address": {
+      "city": "Warszawa",
+      "street": "Jana Pawła",
+      "region": "Mazowieckie",
+      "streetNumber": 9,
+      "postCode": 69100
+    },
+    "animalsId": [2, 3],
+    "avatar": "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+    "img": [
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg"
+    ]
+  }
+]
