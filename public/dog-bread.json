@@ -1,13 +1,16 @@
 [
     {
+        "id": 1,
         "pl": "Mieszaniec",
         "en": "Mixed-breed"
     },
     {
+        "id": 2,
         "pl": "Owczarek Niemiecki",
         "en": "German Shepherd"
     },
     {
+        "id": 3,
         "pl": "Jamnik",
         "en": "Dachshund"
     }
