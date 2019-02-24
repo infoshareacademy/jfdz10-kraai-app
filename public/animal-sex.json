@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "pl": "Samiec",
+        "en": "Male"
+    },
+    {
+        "id": 2,
+        "pl": "Samica",
+        "en": "Female"
+    }
+]

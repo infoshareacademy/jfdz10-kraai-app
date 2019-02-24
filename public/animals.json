@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "name": "Azor",
+        "kindId": 1,
+        "breadId": 1,
+        "metrics": {
+            "sizeId": 1,
+            "sexId": 1,
+            "age": 6
+        },
+        "description": "Azor to spokojny pies",
+        "shelterId": 1,
+        "avatar": "https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg",
+        "img": ["https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg", "https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg"]
+    },
+    {
+        "id": 2,
+        "name": "Mruczek",
+        "kindId": 2,
+        "breadId": 1,
+        "metrics": {
+            "sizeId": 1,
+            "sexId": 1,
+            "age": 10
+        },
+        "description": "Mruczek to kot",
+        "shelterId": 1,
+        "avatar": "https://s.hswstatic.com/gif/whiskers-sam.jpg",
+        "img": ["https://s.hswstatic.com/gif/whiskers-sam.jpg", "https://s.hswstatic.com/gif/whiskers-sam.jpg"]
+    },
+    {
+        "id": 3,
+        "name": "Kola",
+        "kindId": 1,
+        "breadId": 1,
+        "metrics": {
+            "sizeId": 2,
+            "sexId": 2,
+            "age": 3
+        },
+        "description": "Randomowy opis ",
+        "shelterId": 2,
+        "avatar": "https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg",
+        "img": ["https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg", "https://www.petmd.com/sites/default/files/Acute-Dog-Diarrhea-47066074.jpg"]
+    }
+]
