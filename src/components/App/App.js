@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+import Nav from "../Navigation/Nav.js";
 
 class App extends Component {
   render() {
     return (
-    <div>
-      lorem 
-    </div>
-    
+      <div className="wrapper">
+        <Nav />
+      </div>
     );
   }
 }
