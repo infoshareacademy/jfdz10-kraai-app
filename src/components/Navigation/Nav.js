@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
-import Logo from "../../img/logo.png";
-import Test from "./Test.js";
+import Logo3 from "../../img/logo3.png";
 
 const Nav = () => {
   return (
     <Menu stackable>
       <NavLink className="item" exact to="/">
-        <img src={Logo} alt="Logo" />
+        <img src={Logo3} alt="Logo" />
       </NavLink>
 
       <NavLink className="item" to="/szukaj" name="features">
