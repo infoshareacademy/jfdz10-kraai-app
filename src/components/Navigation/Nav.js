@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import Logo3 from "../../img/logo3.png";
+import "./Nav.css";
 
 const Nav = () => {
   return (
@@ -20,6 +21,9 @@ const Nav = () => {
 
       <NavLink className="item" to="/profil" name="profil">
         Profil
+      </NavLink>
+      <NavLink className="item" to="/zwierzak" name="pet">
+        Zwierzak
       </NavLink>
     </Menu>
   );
