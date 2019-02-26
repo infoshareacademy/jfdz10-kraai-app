@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "semantic-ui-css/semantic.min.css";
 import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
-import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import "./components/Navigation/Nav.css";
-import "./components/PetProfile/PetProfile.css";
 
 const AppWithRouter = () => (
   <Router>
