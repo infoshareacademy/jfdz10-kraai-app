@@ -3,7 +3,7 @@ import HeaderCard from "./Header.js";
 import PetCard from "./PetCard.js";
 
 const PetProfile = () => (
-  <div>
+  <div className="PetProfile">
     <HeaderCard />
     <PetCard />
   </div>
