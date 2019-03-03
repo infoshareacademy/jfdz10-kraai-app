@@ -11,7 +11,7 @@ const fetchUser = () =>
 class UserPanel extends Component {
   state = {
     activeItem: "home",
-    user: []
+    user: {}
   };
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class UserPanel extends Component {
           <Grid.Row>
             <Grid.Column width={2}>
               <Image
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQptem4x_Kmyr0PWXo-EDnGzME30xo2JzsWgaVXUHp-hIh53QiFaw"
+                src={this.state.user.avatar}
                 size="medium"
                 circular
               />
@@ -39,21 +39,21 @@ class UserPanel extends Component {
                   active={activeItem === "Moje Dane"}
                   onClick={this.handleItemClick}
                   as={NavLink}
-                  to="/profil/mydata"
+                  to={`mydata`}
                 />
                 <Menu.Item
                   name="Moje zwierzęta"
-                  active={activeItem === "messages"}
+                  active={activeItem === "Moje zwierzęta"}
                   onClick={this.handleItemClick}
                   as={NavLink}
-                  to="/profil/myanimals"
+                  to="myanimals"
                 />
                 <Menu.Item
                   name="favorites"
-                  active={activeItem === "friends"}
+                  active={activeItem === "favorites"}
                   onClick={this.handleItemClick}
                   as={NavLink}
-                  to="/profil/favorites"
+                  to="favorites"
                 />
               </Menu>
             </Grid.Column>
