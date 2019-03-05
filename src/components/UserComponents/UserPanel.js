@@ -1,63 +1,70 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
 
-import { Grid, Image, Menu } from "semantic-ui-react";
+import { Grid, Image, Menu, List } from "semantic-ui-react";
 import "./UserPanel.css";
 
 const fetchUser = () =>
   fetch(process.env.PUBLIC_URL + "/user.json").then(response =>
     response.json()
   );
+const fetchAnimals = () =>
+  fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
+    response.json()
+  );
 class UserPanel extends Component {
   state = {
     activeItem: "home",
-    user: {}
+    user: {},
+    animals: []
   };
 
   componentDidMount() {
     fetchUser().then(user => this.setState({ user }));
+    fetchAnimals().then(animal => this.setState({ animals: animal }));
   }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
     const { activeItem } = this.state;
-
     return (
       <div className="userPanel">
-        <Grid divided>
+        <Grid padded="horizontally">
           <Grid.Row>
-            <Grid.Column width={2}>
+            <Grid.Column computer={2} tablet={2} mobile={16}>
               <Image
                 src={this.state.user.avatar}
                 size="medium"
                 circular
+                centered
               />
-              <Menu inverted pointing vertical>
+            </Grid.Column>
+
+            <Grid.Column tablet={14} mobile={16} computer={14}>
+              <Menu pointing secondary>
                 <Menu.Item
                   name="Moje Dane"
                   active={activeItem === "Moje Dane"}
                   onClick={this.handleItemClick}
                   as={NavLink}
-                  to={`mydata`}
+                  to="/profil/mydata"
                 />
                 <Menu.Item
                   name="Moje zwierzęta"
                   active={activeItem === "Moje zwierzęta"}
                   onClick={this.handleItemClick}
                   as={NavLink}
-                  to="myanimals"
+                  to="/profil/myanimals"
                 />
                 <Menu.Item
                   name="favorites"
                   active={activeItem === "favorites"}
                   onClick={this.handleItemClick}
                   as={NavLink}
-                  to="favorites"
+                  to="/profil/favorites"
                 />
               </Menu>
-            </Grid.Column>
-            <Grid.Column width={14}>
               <Route
                 exact
                 path="/profil/mydata"
@@ -75,12 +82,55 @@ class UserPanel extends Component {
               <Route
                 exact
                 path="/profil/myanimals"
-                component={() => <h1>Moje Zwierzęta</h1>}
+                component={() => (
+                  <React.Fragment>
+                    <h1>Moje Zwierzęta</h1>
+                    <div>
+                      <List celled>
+                        {this.state.animals
+                          .filter(({ id }) =>
+                            this.state.user.createdAnimalId.some(
+                              uId => uId === id
+                            )
+                          )
+                          .map(animal => (
+                            <List.Item key={animal.id}>
+                              <Image avatar src={animal.avatar} />
+                              <List.Content>
+                                <List.Header>{animal.name}</List.Header>
+                              </List.Content>
+                            </List.Item>
+                          ))}
+                      </List>
+                    </div>
+                  </React.Fragment>
+                )}
               />
               <Route
                 exact
                 path="/profil/favorites"
-                component={() => <h1>Ulubione</h1>}
+                component={() => 
+                  <React.Fragment>
+                <h1>Ulubione</h1>
+                  <div>
+                  <List celled>
+                    {this.state.animals
+                      .filter(({ id }) =>
+                        this.state.user.favAnimalId.some(
+                          uId => uId === id
+                        )
+                      )
+                      .map(animal => (
+                        <List.Item key={animal.id}>
+                          <Image avatar src={animal.avatar} />
+                          <List.Content>
+                            <List.Header>{animal.name}</List.Header>
+                          </List.Content>
+                        </List.Item>
+                      ))}
+                  </List>
+                </div>
+              </React.Fragment>}
               />
             </Grid.Column>
           </Grid.Row>
