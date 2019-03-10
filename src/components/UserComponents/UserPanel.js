@@ -9,9 +9,6 @@ import Favorites from "./Favorites";
 import { Grid, Image} from "semantic-ui-react";
 import "./UserPanel.css";
 
-
-
-
 const fetchUser = () =>
   fetch(process.env.PUBLIC_URL + "/user.json").then(response =>
     response.json()
@@ -20,7 +17,6 @@ const fetchAnimals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
     response.json()
   );
-  
 class UserPanel extends Component {
   state = {
     user: {},

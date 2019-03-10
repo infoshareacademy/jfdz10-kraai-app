@@ -20,21 +20,21 @@ class UserPanelNav extends Component{
               active={activeItem === "Moje Dane"}
               onClick={this.handleItemClick}
               as={NavLink}
-              to="/profil/mydata"
+              to="./mydata"
             />
             <Menu.Item
               name="Moje zwierzęta"
               active={activeItem === "Moje zwierzęta"}
               onClick={this.handleItemClick}
               as={NavLink}
-              to="/profil/myanimals"
+              to="./myanimals"
             />
             <Menu.Item
               name="favorites"
               active={activeItem === "favorites"}
               onClick={this.handleItemClick}
               as={NavLink}
-              to="/profil/favorites"
+              to="./favorites"
             />
           </Menu>
         )
