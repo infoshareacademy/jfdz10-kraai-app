@@ -11,6 +11,10 @@ const Nav = () => {
         <img src={Logo} alt="Logo" />
       </NavLink>
 
+      <NavLink className="item" to="/dashboard" name="dashboard">
+        dashboard
+      </NavLink>
+
       <NavLink className="item" to="/szukaj" name="features">
         Szukaj
       </NavLink>
