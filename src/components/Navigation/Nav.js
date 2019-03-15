@@ -11,15 +11,15 @@ const Nav = () => {
         <img src={Logo3} alt="Logo" />
       </NavLink>
 
-      <NavLink className="item" to="/szukaj" name="features">
-        Szukaj
+      <NavLink className="item" to="/shelters" name="features">
+        Schroniska
       </NavLink>
 
       <NavLink className="item" to="/tinder-mode" name="tinder-mode">
         Tinder mode
       </NavLink>
 
-      <NavLink className="item" to="/profil" name="profil">
+      <NavLink className="item" to="/profil/mydata" name="profil">
         Profil
       </NavLink>
       <NavLink className="item" to="/zwierzak" name="pet">
