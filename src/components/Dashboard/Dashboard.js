@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import  "./Dashboard.css"
+import {Doughnut, Pie} from 'react-chartjs-2';
 
 const PieChart = require("react-chartjs").Pie;
 
@@ -61,7 +62,7 @@ class Dashboard extends React.Component {
 
     return (
       <div>
-        <PieChart data={data} width="600" height="250" />
+        <PieChart data={data} width="250" height="250" />
         <PieChart data={shelters} width="600" height="250" />
       </div>
     );
