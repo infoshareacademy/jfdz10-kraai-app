@@ -39,7 +39,7 @@
     "address": {
       "city": "Warszawa",
       "street": "Jana Pawła",
-      "region": "Mazowieckie",
+      "region": "Podkarpackie",
       "streetNumber": 9,
       "postCode": 69100
     },
@@ -56,7 +56,7 @@
     "address": {
       "city": "Warszawa",
       "street": "Jana Pawła",
-      "region": "Mazowieckie",
+      "region": "Śląskie",
       "streetNumber": 9,
       "postCode": 69100
     },
