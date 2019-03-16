@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { Component, Fragment } from "react";
-import { Button, Card, Divider, Image, Placeholder } from "semantic-ui-react";
+import {Card, Image, Placeholder } from "semantic-ui-react";
 
 const shelters = () =>
   fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
