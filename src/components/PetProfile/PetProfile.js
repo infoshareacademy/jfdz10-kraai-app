@@ -1,12 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import HeaderCard from "./Header.js";
 import PetCard from "./PetCard.js";
+import SpecificationsTable from "./Specifications.js";
 
 const PetProfile = () => (
-  <div className="PetProfile">
-    <HeaderCard />
-    <PetCard />
-  </div>
+  <Fragment>
+    <div className="PetProfile">
+      <HeaderCard />
+    </div>
+    <div className="main">
+      <PetCard />
+      <SpecificationsTable />
+    </div>
+  </Fragment>
 );
 
 export default PetProfile;
