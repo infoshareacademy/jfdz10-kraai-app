@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Nav from "../Navigation/Nav.js";
 import { Route } from "react-router-dom";
-import PetProfile from "../PetProfile/PetProfile.js";
+import PetProfile from "../AnimalComponents/PetProfile/PetProfile";
 
 import UserPanel from "../UserComponents/UserPanel";
 import SheltersList from "../ShelterComponents/SheltersList";

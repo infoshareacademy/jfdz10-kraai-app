@@ -2,6 +2,8 @@ import _ from "lodash";
 import React, { Component, Fragment } from "react";
 import {Card, Image, Placeholder } from "semantic-ui-react";
 
+import SheltersFilter from './SheltersFilter';
+
 const shelters = () =>
   fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
     response.json()
@@ -13,6 +15,7 @@ class SheltersList extends Component {
   state = {
     loading: true,
     shelters: []
+
   };
 
   componentDidMount() {
@@ -24,6 +27,7 @@ class SheltersList extends Component {
     const { loading , shelters} = this.state;
     return (
       <Fragment>
+        <SheltersFilter/>
         <Card.Group doubling itemsPerRow={3} stackable >
           {_.map(shelters, shelter => (
             <Card key={shelter.id}>
