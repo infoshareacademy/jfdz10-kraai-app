@@ -15,7 +15,7 @@ class App extends Component {
         <div style={{ padding: 1 + "rem" }}>
           <Route exact path="/shelters" component={SheltersList} />
           <Route exact path="/tinder-mode" component={() => <h1>tinder</h1>} />
-          <Route exact path="/profil" component={UserPanel} />
+          <Route path="/profil" component={UserPanel} />
           <Route exact path="/zwierzak" component={PetProfile} />
           <Route exact path="/schronisko" component={ShelterProfile} />
         </div>
