@@ -25,6 +25,9 @@ const Nav = () => {
       <NavLink className="item" to="/zwierzak" name="pet">
         Zwierzak
       </NavLink>
+      <NavLink className="item" to="/schronisko" name="shelter">
+        Schronisko
+      </NavLink>
     </Menu>
   );
 };
