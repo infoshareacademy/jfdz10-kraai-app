@@ -17,6 +17,8 @@ const Nav = () => {
 
       <NavLink className="item" to="/szukaj" name="features">
         Szukaj
+        </NavLink>
+
       <NavLink className="item" to="/shelters" name="features">
         Schroniska
       </NavLink>
