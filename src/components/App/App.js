@@ -3,10 +3,10 @@ import "./App.css";
 import Nav from "../Navigation/Nav.js";
 import { Route } from "react-router-dom";
 import PetProfile from "../PetProfile/PetProfile.js";
-import AnimalsList from "../AnimalsComponents/AnimalsList"
 
 import UserPanel from "../UserComponents/UserPanel";
 import SheltersList from "../ShelterComponents/SheltersList";
+import AnimalsList from "../AnimalsComponents/AnimalsList"
 
 class App extends Component {
   render() {
