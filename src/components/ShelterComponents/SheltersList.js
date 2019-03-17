@@ -1,13 +1,11 @@
 import _ from "lodash";
 import React, { Component, Fragment } from "react";
-import { Button, Card, Divider, Image, Placeholder } from "semantic-ui-react";
+import { Card, Image, Placeholder } from "semantic-ui-react";
 
 const shelters = () =>
   fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
     response.json()
   );
-
-
 
 class SheltersList extends Component {
   state = {
@@ -16,15 +14,15 @@ class SheltersList extends Component {
   };
 
   componentDidMount() {
-   shelters().then(shelters => this.setState({shelters}));
-   setTimeout(() => this.setState({loading: false}))
+    shelters().then(shelters => this.setState({ shelters }));
+    setTimeout(() => this.setState({ loading: false }));
   }
 
   render() {
-    const { loading , shelters} = this.state;
+    const { loading, shelters } = this.state;
     return (
       <Fragment>
-        <Card.Group doubling itemsPerRow={3} stackable >
+        <Card.Group doubling itemsPerRow={3} stackable>
           {_.map(shelters, shelter => (
             <Card key={shelter.id}>
               {loading ? (
@@ -32,7 +30,7 @@ class SheltersList extends Component {
                   <Placeholder.Image square />
                 </Placeholder>
               ) : (
-                <Image src={shelter.avatar}/>
+                <Image src={shelter.avatar} />
               )}
               <Card.Content>
                 {loading ? (
@@ -53,8 +51,6 @@ class SheltersList extends Component {
                   </Fragment>
                 )}
               </Card.Content>
-
-             
             </Card>
           ))}
         </Card.Group>
