@@ -15,6 +15,10 @@ const Nav = () => {
         Schroniska
       </NavLink>
 
+      <NavLink className="item" to="/animals" name="features">
+        Lista zwierzaków
+      </NavLink>
+
       <NavLink className="item" to="/tinder-mode" name="tinder-mode">
         Tinder mode
       </NavLink>
