@@ -5,8 +5,8 @@ import "./ShelterProfile.css";
 const HeaderCard = () => (
   <Header as="h2" icon>
     <Icon name="paw" />
-    Pies XYZ
-    <Header.Subheader>Poznaj bliżej swojego move!</Header.Subheader>
+    Ciapkowo
+    <Header.Subheader>Schronisko OTOZ Animals</Header.Subheader>
   </Header>
 );
 
