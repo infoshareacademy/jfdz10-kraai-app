@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
-import Logo from "../../../img/logo.png";
+import Logo from "../../img/logo.png";
 
 const PetCard = () => (
   <Card

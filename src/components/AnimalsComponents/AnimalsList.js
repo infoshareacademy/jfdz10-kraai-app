@@ -1,40 +1,38 @@
 import _ from "lodash";
 import React, { Component, Fragment } from "react";
-import {Card, Image, Placeholder } from "semantic-ui-react";
+import { Card, Image, Placeholder } from "semantic-ui-react";
 
-import SheltersFilter from './SheltersFilter';
-
-const shelters = () =>
-  fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
+const animals = () =>
+  fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
     response.json()
   );
 
-class SheltersList extends Component {
+
+
+class AnimalsList extends Component {
   state = {
     loading: true,
-    shelters: []
-
+    animals: []
   };
 
   componentDidMount() {
-    shelters().then(shelters => this.setState({ shelters }));
-    setTimeout(() => this.setState({ loading: false }));
+   animals().then(animals => this.setState({animals: animals}));
+   setTimeout(() => this.setState({loading: false}))
   }
 
   render() {
-    const { loading, shelters } = this.state;
+    const { loading , animals} = this.state;
     return (
       <Fragment>
-        <SheltersFilter/>
         <Card.Group doubling itemsPerRow={3} stackable >
-          {_.map(shelters, shelter => (
-            <Card key={shelter.id}>
+          {_.map(animals, animal => (
+            <Card key={animal.id}>
               {loading ? (
                 <Placeholder>
                   <Placeholder.Image square />
                 </Placeholder>
               ) : (
-                <Image src={shelter.avatar} />
+                <Image src={animal.avatar}/>
               )}
               <Card.Content>
                 {loading ? (
@@ -49,12 +47,14 @@ class SheltersList extends Component {
                   </Placeholder>
                 ) : (
                   <Fragment>
-                    <Card.Header>{shelter.name}</Card.Header>
-                    <Card.Meta>{shelter.address.region}</Card.Meta>
-                    <Card.Description>{shelter.address.city}</Card.Description>
+                    <Card.Header>{animal.name}</Card.Header>
+                    <Card.Meta>{animal.description}</Card.Meta>
+                    <Card.Description>Aktualnie przebywa w {animal.shelterId}</Card.Description>
                   </Fragment>
                 )}
               </Card.Content>
+
+             
             </Card>
           ))}
         </Card.Group>
@@ -63,4 +63,4 @@ class SheltersList extends Component {
   }
 }
 
-export default SheltersList;
+export default AnimalsList;

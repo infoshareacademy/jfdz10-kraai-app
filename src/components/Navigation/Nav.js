@@ -15,6 +15,10 @@ const Nav = () => {
         Schroniska
       </NavLink>
 
+      <NavLink className="item" to="/animals" name="features">
+        Lista zwierzaków
+      </NavLink>
+
       <NavLink className="item" to="/tinder-mode" name="tinder-mode">
         Tinder mode
       </NavLink>
@@ -24,6 +28,9 @@ const Nav = () => {
       </NavLink>
       <NavLink className="item" to="/zwierzak" name="pet">
         Zwierzak
+      </NavLink>
+      <NavLink className="item" to="/schronisko" name="shelter">
+        Schronisko
       </NavLink>
     </Menu>
   );
