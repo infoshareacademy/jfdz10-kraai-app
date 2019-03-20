@@ -12,7 +12,12 @@ const shelters = () =>
 class SheltersList extends Component {
   state = {
     loading: true,
-    shelters: []
+    shelters: [],
+    filters: {
+      name: '',
+      region: '',
+      city: ''
+    }
 
   };
 
@@ -20,6 +25,8 @@ class SheltersList extends Component {
     shelters().then(shelters => this.setState({ shelters }));
     setTimeout(() => this.setState({ loading: false }));
   }
+
+
 
   render() {
     const { loading, shelters } = this.state;
