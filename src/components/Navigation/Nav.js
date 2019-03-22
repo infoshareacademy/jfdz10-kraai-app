@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, NavLink, Route } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
-import Logo from "../../img/logo.png";
-import Test from "./Test.js";
+import Logo3 from "../../img/logo3.png";
+import "./Nav.css";
 
 const Nav = () => {
   return (
     <Menu stackable>
       <NavLink className="item" exact to="/">
-        <img src={Logo} alt="Logo" />
+        <img src={Logo3} alt="Logo" />
       </NavLink>
 
       <NavLink className="item" to="/dashboard" name="dashboard">
@@ -17,14 +17,28 @@ const Nav = () => {
 
       <NavLink className="item" to="/szukaj" name="features">
         Szukaj
+        </NavLink>
+
+      <NavLink className="item" to="/shelters" name="features">
+        Schroniska
+      </NavLink>
+
+      <NavLink className="item" to="/animals" name="features">
+        Lista zwierzaków
       </NavLink>
 
       <NavLink className="item" to="/tinder-mode" name="tinder-mode">
         Tinder mode
       </NavLink>
 
-      <NavLink className="item" to="/profil" name="profil">
+      <NavLink className="item" to="/profil/mydata" name="profil">
         Profil
+      </NavLink>
+      <NavLink className="item" to="/zwierzak" name="pet">
+        Zwierzak
+      </NavLink>
+      <NavLink className="item" to="/schronisko" name="shelter">
+        Schronisko
       </NavLink>
     </Menu>
   );

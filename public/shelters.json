@@ -32,5 +32,39 @@
       "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
       "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg"
     ]
+  },
+  {
+    "id": 3,
+    "name": "Schronisko 3",
+    "address": {
+      "city": "Warszawa",
+      "street": "Jana Pawła",
+      "region": "Mazowieckie",
+      "streetNumber": 9,
+      "postCode": 69100
+    },
+    "animalsId": [2, 3],
+    "avatar": "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+    "img": [
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Schronisko 3",
+    "address": {
+      "city": "Katowice",
+      "street": "Jana Pawła",
+      "region": "Śląskie",
+      "streetNumber": 9,
+      "postCode": 69100
+    },
+    "animalsId": [2, 3],
+    "avatar": "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+    "img": [
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg",
+      "https://media.nbcwashington.com/images/578*325/Senior_Dogs_Get_a_Dog.jpg"
+    ]
   }
 ]
