@@ -7,7 +7,7 @@ import PetProfile from "../PetProfile/PetProfile.js";
 import ShelterProfile from "../ShelterProfile/ShelterProfile.js";
 import UserPanel from "../UserComponents/UserPanel";
 import SheltersList from "../ShelterComponents/SheltersList";
-import AnimalsList from "../AnimalsComponents/AnimalsList"
+import AnimalsList from "../AnimalsComponents/AnimalsList";
 
 class App extends Component {
   render() {
