@@ -1,27 +1,35 @@
 import _ from "lodash";
 import React, { Component, Fragment } from "react";
-import { Card, Image, Placeholder } from "semantic-ui-react";
+import { Card, Image, Placeholder, Icon } from "semantic-ui-react";
 
 const animals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
     response.json()
   );
-
+const user = () =>
+    fetch(process.env.PUBLIC_URL + "/user.json").then(response => response.json())
 
 
 class AnimalsList extends Component {
   state = {
     loading: true,
-    animals: []
+    animals: [],
+    user: {
+      favAnimalId:[],
+    }
   };
 
   componentDidMount() {
    animals().then(animals => this.setState({animals: animals}));
+   user().then(user => this.setState({user}))
    setTimeout(() => this.setState({loading: false}))
+  }
+  componentWillUnmount() {
+    localStorage.setItem("userFav", this.state.user.favAnimalId);
   }
 
   render() {
-    const { loading , animals} = this.state;
+    const { loading , animals, user} = this.state;
     return (
       <Fragment>
         <Card.Group doubling itemsPerRow={3} stackable >
@@ -50,6 +58,7 @@ class AnimalsList extends Component {
                     <Card.Header>{animal.name}</Card.Header>
                     <Card.Meta>{animal.description}</Card.Meta>
                     <Card.Description>Aktualnie przebywa w {animal.shelterId}</Card.Description>
+                    {!user.favAnimalId.some(favAnimal => favAnimal === animal.id)? <Icon name='heart outline' color ='black' onClick = {(e) => this.setState(user.favAnimalId = [...user.favAnimalId , animal.id])}/> : <Icon name='heart' color ='red' onClick = {(e) => this.setState(user.favAnimalId = user.favAnimalId.filter(id => id != animal.id))}/>}
                   </Fragment>
                 )}
               </Card.Content>
