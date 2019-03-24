@@ -1,9 +1,13 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
-import Logo from "../../img/logo.png";
 
-const ShelterCard = () => (
-  <Card image={Logo} header="Ciapkowo" meta="Pomorskie" description="Gdynia" />
+const ShelterCard = props => (
+  <Card
+    image={props.img}
+    header={props.name}
+    meta={props.city}
+    description={props.region}
+  />
 );
 
 export default ShelterCard;

@@ -7,17 +7,9 @@ import "./Nav.css";
 const Nav = () => {
   return (
     <Menu stackable>
-      <NavLink className="item" exact to="/">
+      <NavLink className="item" exact to="/dashboard">
         <img src={Logo3} alt="Logo" />
       </NavLink>
-
-      <NavLink className="item" to="/dashboard" name="dashboard">
-        dashboard
-      </NavLink>
-
-      <NavLink className="item" to="/szukaj" name="features">
-        Szukaj
-        </NavLink>
 
       <NavLink className="item" to="/shelters" name="features">
         Schroniska
@@ -36,9 +28,6 @@ const Nav = () => {
       </NavLink>
       <NavLink className="item" to="/zwierzak" name="pet">
         Zwierzak
-      </NavLink>
-      <NavLink className="item" to="/schronisko" name="shelter">
-        Schronisko
       </NavLink>
     </Menu>
   );
