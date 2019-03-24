@@ -16,7 +16,7 @@ class AnimalsList extends Component {
     animals: [],
     filter: {
       name: "",
-      kind: null
+      kind: '',
     }
   };
 
@@ -27,7 +27,7 @@ class AnimalsList extends Component {
     return this.state.animals.filter(animal => {
       const animalNameLowercase = animal.name.toLowerCase();
       const nameFilteredLowercase = this.state.filter.name.toLowerCase();
-      const animalKind = animal.kindId;
+      const animalKind = animal.kindId
       const kindFilter = this.state.filter.kind;
       console.log(animalKind);
       return (
