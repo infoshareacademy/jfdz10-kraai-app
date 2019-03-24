@@ -2,6 +2,8 @@ import React, { Fragment, Component } from "react";
 import HeaderCard from "./Header.js";
 import PetCard from "./PetCard.js";
 import SpecificationsTable from "./Specifications.js";
+import {Icon} from 'semantic-ui-react'
+import {Link} from "react-router-dom";
 
 const pets = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
@@ -99,16 +101,20 @@ class PetProfile extends Component {
     const pet = this.state.pet;
     return (
       <Fragment>
+      <Link to="/animals"><Icon name="arrow left" size="big" float='left'/></Link>
         <div className="PetProfile">
-          <HeaderCard name={pet.name} />
+          <HeaderCard name={pet.name} /> 
         </div>
         <div className="main">
+       
           <PetCard
             name={pet.name}
             avatar={pet.avatar}
             description={pet.description}
             kind={this.state.kind.pl}
+            petId={pet.id}
           />
+         
           <SpecificationsTable
             size={this.state.size.pl}
             description={pet.description}
