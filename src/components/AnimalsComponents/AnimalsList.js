@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Card, Image, Icon } from "semantic-ui-react";
-import NavLink from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const animals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
