@@ -1,42 +1,88 @@
-import _ from "lodash";
+
 import React, { Component, Fragment } from "react";
-import { Card, Image } from "semantic-ui-react";
-import { NavLink } from "react-router-dom";
+import { Card, Image, Icon } from "semantic-ui-react";
 
 const animals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
+    response.json()
+  );
+const user = () =>
+  fetch(process.env.PUBLIC_URL + "/user.json").then(response =>
     response.json()
   );
 
 class AnimalsList extends Component {
   state = {
     loading: true,
-    animals: []
+    animals: [],
+    user: {
+      favAnimalId: []
+    },
+    userFavoriteAnimals: []
   };
 
   componentDidMount() {
     animals().then(animals => this.setState({ animals: animals }));
+    user().then(user => this.setState({ user }));
+    if(localStorage.getItem('userFav')){
+      this.setState({userFavoriteAnimals: JSON.parse(localStorage.getItem('userFav'))})
+    }
+
+  }
+  componentWillUnmount() {
+    localStorage.setItem("userFav", JSON.stringify(this.state.userFavoriteAnimals));
   }
 
   render() {
-    const { animals } = this.state;
+    const { animals, user , userFavoriteAnimals} = this.state;
     return (
       <Fragment>
         <Card.Group doubling itemsPerRow={3} stackable>
-          {_.map(animals, animal => (
+          {animals.map(animal => (
             <Card key={animal.id}>
-              <NavLink to={`animals/${animal.id}`}>
-                <Image src={animal.avatar} />
-              </NavLink>
-
+              
+                <Image src={animal.avatar} height ='300px'/>
+              
               <Card.Content>
-                <Fragment>
-                  <Card.Header>{animal.name}</Card.Header>
-                  <Card.Meta>{animal.description}</Card.Meta>
-                  <Card.Description>
-                    {`Aktualnie przebywa w ${animal.shelterId}`}
-                  </Card.Description>
-                </Fragment>
+                
+                  <Fragment>
+                    <Card.Header>{animal.name}</Card.Header>
+                    <Card.Meta>{animal.description}</Card.Meta>
+                    <Card.Description>
+                      Aktualnie przebywa w {animal.shelterId}
+                    </Card.Description>
+                    {!userFavoriteAnimals.some(
+                      favAnimal => favAnimal === animal.id
+                    ) ? (
+                      <Icon
+                        name="heart outline"
+                        color="black"
+                        size='big'
+                        onClick={e =>
+                          this.setState(
+                            ({userFavoriteAnimals:[
+                              ...userFavoriteAnimals,
+                              animal.id
+                            ]})
+                          )
+                        }
+                      />
+                    ) : (
+                      <Icon
+                        name="heart"
+                        color="red"
+                        size='big'
+                        onClick={e =>
+                          this.setState(
+                            ({userFavoriteAnimals: userFavoriteAnimals.filter(
+                              id => id !== animal.id
+                            )})
+                          )
+                        }
+                      />
+                    )}
+                  </Fragment>
+                
               </Card.Content>
             </Card>
           ))}
