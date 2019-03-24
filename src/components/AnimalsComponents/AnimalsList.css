@@ -1,4 +1,4 @@
-.ui.card > .content,
+.ui.three.cards > .card > .ui.card > .content,
 .ui.cards > .card > .content {
   display: flex;
   justify-content: space-around;

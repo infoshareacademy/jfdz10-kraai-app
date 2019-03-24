@@ -39,7 +39,7 @@ class AnimalsList extends Component {
   }
 
   render() {
-    const { animals, user, userFavoriteAnimals } = this.state;
+    const { animals, userFavoriteAnimals } = this.state;
     return (
       <Fragment>
         <Card.Group doubling itemsPerRow={3} stackable>
