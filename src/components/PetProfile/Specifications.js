@@ -1,7 +1,25 @@
-import React from "react";
+import React, {Component} from "react";
 import { Divider, Header, Icon, Table } from "semantic-ui-react";
 
-const SpecificationsTable = props => (
+const animalShelter = fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
+  response.json()
+);
+
+class SpecificationsTable extends Component{
+state= {
+  shelters: []
+}
+
+componentDidMount() {
+  animalShelter.then(shelters => this.setState({shelters}))
+}
+
+
+render(){
+  const props = this.props
+  const {shelters} = this.state
+  
+  return(
   <div className="SpecTable">
     <Divider horizontal>
       <Header as="h4">
@@ -40,7 +58,16 @@ const SpecificationsTable = props => (
         </Table.Row>
       </Table.Body>
     </Table>
+    <Divider horizontal>
+      <Header as="h4">
+        <Icon name="home" />
+        W schronisku
+      </Header>
+    </Divider>
+    <div>{console.log(shelters.find(({id}) => id === props.shelter))}</div>
   </div>
-);
+  )
+}
+};
 
 export default SpecificationsTable;

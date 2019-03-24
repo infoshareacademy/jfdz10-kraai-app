@@ -121,6 +121,7 @@ class PetProfile extends Component {
             age={pet.metrics.age}
             sex={this.state.sex.pl}
             bread={this.state.bread.pl}
+            shelter={this.state.pet.shelterId}
           />
         </div>
       </Fragment>
