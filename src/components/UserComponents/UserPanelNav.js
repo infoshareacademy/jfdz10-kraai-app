@@ -30,7 +30,7 @@ class UserPanelNav extends Component{
               to="./myanimals"
             />
             <Menu.Item
-              name="favorites"
+              name="Ulubione"
               active={activeItem === "favorites"}
               onClick={this.handleItemClick}
               as={NavLink}
