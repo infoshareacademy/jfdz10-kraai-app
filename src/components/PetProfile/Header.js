@@ -2,10 +2,10 @@ import React from "react";
 import { Header, Icon } from "semantic-ui-react";
 import "./PetProfile.css";
 
-const HeaderCard = () => (
+const HeaderCard = props => (
   <Header as="h2" icon>
     <Icon name="paw" />
-    Pies XYZ
+    {props.name}
     <Header.Subheader>Poznaj bliżej swojego move!</Header.Subheader>
   </Header>
 );

@@ -2,11 +2,10 @@ import React from "react";
 import { Header, Icon } from "semantic-ui-react";
 import "./ShelterProfile.css";
 
-const HeaderCard = () => (
+const HeaderCard = props => (
   <Header as="h2" icon>
-    <Icon name="paw" />
-    Ciapkowo
-    <Header.Subheader>Schronisko OTOZ Animals</Header.Subheader>
+    <Icon name="home" />
+    <span>{props.name}</span>
   </Header>
 );
 

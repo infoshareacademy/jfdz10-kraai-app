@@ -1,3 +1,6 @@
 .ui.menu .item {
-    text-transform: uppercase;
+  text-transform: uppercase;
+}
+.ui.menu {
+  background-color: #097988;
 }
