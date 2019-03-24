@@ -68,7 +68,7 @@ class AnimalsList extends Component {
           {this.getFilteredAnimals().map(animal => (
             <Card key={animal.id}>
               <NavLink to={`animals/${animal.id}`}>
-                <Image src={animal.avatar} height="300px" />
+                <Image src={animal.avatar} />
               </NavLink>
 
               <Card.Content>
@@ -101,6 +101,7 @@ class AnimalsList extends Component {
                       name="heart"
                       color="red"
                       size="big"
+                      
                       onClick={e =>
                         this.setState({
                           userFavoriteAnimals: userFavoriteAnimals.filter(
