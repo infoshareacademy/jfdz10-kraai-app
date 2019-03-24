@@ -58,7 +58,7 @@ class AnimalsList extends Component {
                       Aktualnie przebywa w {animal.shelterId}
                     </Card.Description>
                   </div>
-
+                  
                   {!userFavoriteAnimals.some(
                     favAnimal => favAnimal === animal.id
                   ) ? (

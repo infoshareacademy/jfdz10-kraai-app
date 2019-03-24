@@ -16,7 +16,7 @@ class Favorites extends Component {
       <React.Fragment>
         <h1>Ulubione</h1>
         <div>
-          <List celled>
+          <List celled size='huge'>
             {this.props.animals
               .filter(({ id }) =>
                 userFavoriteAnimals.some(uId => uId === id)
