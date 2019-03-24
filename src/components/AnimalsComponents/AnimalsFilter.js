@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { Input, Dropdown, Form } from "semantic-ui-react";
 import "./AnimalsFilter.css";
 
-const animals = fetch("/animals.json").then(resp => resp.json());
+
+const kind = fetch('/kind.json').then(res => res.json())
+
 
 class AnimalsFilter extends Component {
   state = {
@@ -13,12 +15,12 @@ class AnimalsFilter extends Component {
   };
 
   componentDidMount() {
-    animals.then(animals =>
-      animals.map((animals, i) => ({
-        kind: animals.kindId,
-        name: animals.name
-      }))
-    );
+    kind.then(kind => kind.map(kind => ({
+      key: kind.id,
+      text: kind.pl,
+      value: kind.id
+    }))).then(kindArr => this.setState({kindOptions: kindArr}))
+    
   }
 
   filterCollection = () => ({
@@ -41,7 +43,7 @@ class AnimalsFilter extends Component {
   };
 
   render() {
-    const { kindFilter, nameFilter } = this.state;
+    const { kindFilter, nameFilter, kindOptions } = this.state;
     return (
       <Form>
         <Input
@@ -51,7 +53,7 @@ class AnimalsFilter extends Component {
         />
         <Dropdown
           clearable
-          options={this.state.animalOptions}
+          options={kindOptions}
           selection
           search
           placeholder="Rodzaj zwierzaka..."
