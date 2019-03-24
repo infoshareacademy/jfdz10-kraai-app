@@ -36,7 +36,7 @@ const SpecificationsTable = props => (
         </Table.Row>
         <Table.Row>
           <Table.Cell>Rasa</Table.Cell>
-          <Table.Cell>Not Much Usually</Table.Cell>
+          <Table.Cell>{props.bread}</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>
