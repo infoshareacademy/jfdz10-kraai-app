@@ -16,7 +16,7 @@ const Nav = () => {
       </NavLink>
 
       <NavLink className="item" to="/animals" name="features">
-        Lista zwierzaków
+        Zwierzaki
       </NavLink>
 
       <NavLink className="item" to="/tinder-mode" name="tinder-mode">

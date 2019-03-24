@@ -82,6 +82,7 @@ class AnimalsList extends Component {
                     favAnimal => favAnimal === animal.id
                   ) ? (
                     <Icon
+                      style={{cursor:'pointer', float: 'right'}}
                       name="heart outline"
                       color="black"
                       size="big"
@@ -96,6 +97,7 @@ class AnimalsList extends Component {
                     />
                   ) : (
                     <Icon
+                      style={{cursor:'pointer', float: 'right'}}
                       name="heart"
                       color="red"
                       size="big"
