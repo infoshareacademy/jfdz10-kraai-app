@@ -2,30 +2,31 @@ import React, { Component } from "react";
 import { Input, Dropdown, Form } from "semantic-ui-react";
 import "./AnimalsFilter.css";
 
-
-const kind = fetch('/kind.json').then(res => res.json())
-
+const kind = fetch("/kind.json").then(res => res.json());
 
 class AnimalsFilter extends Component {
   state = {
     kindFilter: "",
     nameFilter: "",
     kindOptions: [],
-    animalOptions:[]
+    animalOptions: []
   };
 
   componentDidMount() {
-    kind.then(kind => kind.map(kind => ({
-      key: kind.id,
-      text: kind.pl,
-      value: kind.id
-    }))).then(kindArr => this.setState({kindOptions: kindArr}))
-    
+    kind
+      .then(kind =>
+        kind.map(kind => ({
+          key: kind.id,
+          text: kind.pl,
+          value: kind.id
+        }))
+      )
+      .then(kindArr => this.setState({ kindOptions: kindArr }));
   }
 
   filterCollection = () => ({
-      kind: this.state.kindFilter,
-      name: this.state.nameFilter
+    kind: this.state.kindFilter,
+    name: this.state.nameFilter
   });
 
   onInputNameChange = event => {
@@ -34,7 +35,6 @@ class AnimalsFilter extends Component {
       this.props.onFilterChange(this.filterCollection());
     });
   };
-
 
   onDropdownKindChange = (event, { value }) => {
     this.setState({ kindFilter: value }, () =>
