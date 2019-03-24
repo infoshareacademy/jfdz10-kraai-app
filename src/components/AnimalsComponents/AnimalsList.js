@@ -3,6 +3,8 @@ import { Card, Image, Icon } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import "./AnimalsList.css";
 
+import AnimalsFilter from "./AnimalsFilter";
+
 const animals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
     response.json()
@@ -16,6 +18,10 @@ class AnimalsList extends Component {
   state = {
     loading: true,
     animals: [],
+    filter: {
+      name: "",
+      kind: ""
+    },
     user: {
       favAnimalId: []
     },
@@ -31,6 +37,20 @@ class AnimalsList extends Component {
       });
     }
   }
+
+  getFilteredAnimals() {
+    return this.state.animals.filter(animal => {
+      const animalNameLowercase = animal.name.toLowerCase();
+      const nameFilteredLowercase = this.state.filter.name.toLowerCase();
+      const animalKind = animal.kindId;
+      const kindFilter = this.state.filter.kind;
+      return (
+        animalNameLowercase.includes(nameFilteredLowercase) &&
+        animalKind === kindFilter
+      );
+    });
+  }
+
   componentWillUnmount() {
     localStorage.setItem(
       "userFav",
@@ -42,8 +62,9 @@ class AnimalsList extends Component {
     const { animals, userFavoriteAnimals } = this.state;
     return (
       <Fragment>
+        <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
         <Card.Group doubling itemsPerRow={3} stackable>
-          {animals.map(animal => (
+        {this.getFilteredAnimals().map(animal => (
             <Card key={animal.id}>
               <NavLink to={`animals/${animal.id}`}>
                 <Image src={animal.avatar} height="300px" />
@@ -53,10 +74,7 @@ class AnimalsList extends Component {
                 <Fragment>
                   <div className="content__wrapper">
                     <Card.Header>{animal.name}</Card.Header>
-                    <Card.Meta>{animal.description}</Card.Meta>
-                    <Card.Description>
-                      Aktualnie przebywa w {animal.shelterId}
-                    </Card.Description>
+                    <Card.Description>{animal.description}</Card.Description>
                   </div>
 
                   {!userFavoriteAnimals.some(
