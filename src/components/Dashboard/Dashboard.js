@@ -33,8 +33,6 @@ class Dashboard extends React.Component {
     const data = [];
     const shelters = [];
 
-
-
     this.state.kinds.forEach(kind => {
       const numberOfKind = this.state.animals.filter(
         animal => animal.kindId === kind.id
