@@ -59,7 +59,7 @@ class SheltersList extends Component {
         <Card.Group doubling itemsPerRow={3} stackable>
           {this.getFilteredShelters().map(shelter => (
             <Card key={shelter.id}>
-              <NavLink to="/schronisko" name="shelter">
+              <NavLink to={`/shelters/${shelter.id}`} name="shelter">
                 <Image src={shelter.avatar} />
               </NavLink>
 

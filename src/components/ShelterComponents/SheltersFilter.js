@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Input, Dropdown, Form } from "semantic-ui-react";
 
 const polandRegions = fetch(
@@ -59,21 +59,19 @@ class SheltersFilter extends Component {
   });
 
   onInputNameChange = event => {
-      
-    this.setState({ nameFilter: event.target.value }, () =>{
-    console.log(this.filterCollection());
-      this.props.onFilterChange(this.filterCollection())}
-    );
+    this.setState({ nameFilter: event.target.value }, () => {
+      console.log(this.filterCollection());
+      this.props.onFilterChange(this.filterCollection());
+    });
   };
 
-  onDropdownRegionChange = (event,{value}) => {
-      
+  onDropdownRegionChange = (event, { value }) => {
     this.setState({ regionFilter: value }, () =>
       this.props.onFilterChange(this.filterCollection())
     );
   };
 
-  onDropdownCityChange = (event, {value}) => {
+  onDropdownCityChange = (event, { value }) => {
     this.setState({ cityFilter: value }, () =>
       this.props.onFilterChange(this.filterCollection())
     );

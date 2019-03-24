@@ -20,7 +20,7 @@ class App extends Component {
           <Route exact path="/tinder-mode" component={() => <h1>tinder</h1>} />
           <Route path="/profil" component={UserPanel} />
           <Route exact path="/zwierzak" component={PetProfile} />
-          <Route exact path="/schronisko" component={ShelterProfile} />
+          <Route exact path="/shelters/:id" component={ShelterProfile} />
         </div>
       </div>
     );
