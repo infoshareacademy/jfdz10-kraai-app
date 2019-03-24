@@ -16,7 +16,7 @@ class App extends Component {
       <div className="wrapper">
         <Nav />
         <div style={{ padding: 1 + "rem" }}>
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/shelters" component={SheltersList} />
           <Route exact path="/animals" component={AnimalsList} />
           <Route exact path="/tinder-mode" component={() => <h1>tinder</h1>} />
