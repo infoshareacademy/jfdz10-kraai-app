@@ -3,6 +3,8 @@ import React, { Component, Fragment } from "react";
 import { Card, Image } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 
+import AnimalsFilter from './AnimalsFilter'
+
 const animals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
     response.json()
@@ -22,6 +24,7 @@ class AnimalsList extends Component {
     const { animals } = this.state;
     return (
       <Fragment>
+        <AnimalsFilter/>
         <Card.Group doubling itemsPerRow={3} stackable>
           {_.map(animals, animal => (
             <Card key={animal.id}>
