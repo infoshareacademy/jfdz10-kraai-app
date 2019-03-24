@@ -1,13 +1,12 @@
 import React from "react";
 import { Card } from "semantic-ui-react";
-import Logo from "../../img/logo.png";
 
-const PetCard = () => (
+const PetCard = props => (
   <Card
-    image={Logo}
-    header="AZOR"
+    image={props.avatar}
+    header={props.name}
     meta="Pies"
-    description="AZOR jest podopiecznym OTOZ Animals Schroniska Ciapkowo."
+    description={props.description}
   />
 );
 
