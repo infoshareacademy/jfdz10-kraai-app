@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-import  "./Dashboard.css"
-// import {Doughnut, Pie} from 'react-chartjs-2';
+import React from "react";
+import ViewsLabel from "./ViewsLabel";
+import "./Dashboard.css";
 
 const PieChart = require("react-chartjs").Pie;
-
-
 
 class Dashboard extends React.Component {
   state = {
@@ -60,14 +58,11 @@ class Dashboard extends React.Component {
       });
     });
 
-
-
-
     return (
-      <div>
-        
-        <PieChart  data={data} width="250" height="250" />
+      <div className="dashboard wrapper">
+        <PieChart data={data} width="250" height="250" />
         <PieChart data={shelters} width="600" height="250" />
+        <ViewsLabel />
       </div>
     );
   }

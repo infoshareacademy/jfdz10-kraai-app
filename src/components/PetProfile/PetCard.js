@@ -5,7 +5,7 @@ const PetCard = props => (
   <Card
     image={props.avatar}
     header={props.name}
-    meta="Pies"
+    meta={props.kind}
     description={props.description}
   />
 );
