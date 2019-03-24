@@ -1,7 +1,7 @@
 import React from "react";
 import { Divider, Header, Icon, Table } from "semantic-ui-react";
 
-const SpecificationsTable = () => (
+const SpecificationsTable = props => (
   <div className="SpecTable">
     <Divider horizontal>
       <Header as="h4">
@@ -10,39 +10,32 @@ const SpecificationsTable = () => (
       </Header>
     </Divider>
 
-    <p>
-      Doggie treats are good for all times of the year. Proven to be eaten by
-      99.9% of all dogs worldwide.
-    </p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, earum?</p>
 
     <Divider horizontal>
       <Header as="h4">
         <Icon name="bar chart" />
-        Specyfikacja
+        Adres
       </Header>
     </Divider>
 
     <Table definition>
       <Table.Body>
         <Table.Row>
-          <Table.Cell width={2}>Rozmiar</Table.Cell>
-          <Table.Cell>1" x 2"</Table.Cell>
+          <Table.Cell width={2}>Miasto</Table.Cell>
+          <Table.Cell>{props.city}</Table.Cell>
         </Table.Row>
         <Table.Row>
-          <Table.Cell>Waga</Table.Cell>
-          <Table.Cell>6 ounces</Table.Cell>
+          <Table.Cell>Ulica</Table.Cell>
+          <Table.Cell>{`${props.street} ${props.streetNumber}`}</Table.Cell>
         </Table.Row>
         <Table.Row>
-          <Table.Cell>Umaszczenie</Table.Cell>
-          <Table.Cell>Yellowish</Table.Cell>
+          <Table.Cell>Region</Table.Cell>
+          <Table.Cell>{props.region}</Table.Cell>
         </Table.Row>
         <Table.Row>
-          <Table.Cell>Płeć</Table.Cell>
-          <Table.Cell>Not Much Usually</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Rasa</Table.Cell>
-          <Table.Cell>Not Much Usually</Table.Cell>
+          <Table.Cell>Kod pocztowy</Table.Cell>
+          <Table.Cell>{props.postCode}</Table.Cell>
         </Table.Row>
       </Table.Body>
     </Table>

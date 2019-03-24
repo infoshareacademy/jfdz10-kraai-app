@@ -25,22 +25,28 @@ class ShelterProfile extends Component {
     );
   };
   render() {
+    let shelter = this.state.shelter;
     return (
-      <Fragment>
-        {console.log(this.state.shelter)}
+      <>
         <div className="PetProfile">
-          <HeaderCard name={this.state.shelter.name} />
+          <HeaderCard name={shelter.name} />
         </div>
         <div className="main">
           <ShelterCard
-            img={this.state.shelter.avatar}
-            name={this.state.shelter.name}
-            city={this.state.shelter.address.city}
-            region={this.state.shelter.address.region}
+            img={shelter.avatar}
+            name={shelter.name}
+            city={shelter.address.city}
+            region={shelter.address.region}
           />
-          <SpecificationsTable />
+          <SpecificationsTable
+            city={shelter.address.city}
+            region={shelter.address.region}
+            street={shelter.address.street}
+            streetNumber={shelter.address.streetNumber}
+            postCode={shelter.address.postCode}
+          />
         </div>
-      </Fragment>
+      </>
     );
   }
 }
