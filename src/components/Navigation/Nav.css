@@ -1,6 +1,14 @@
-.ui.menu .item {
+.ui.menu.stackable > .item {
   text-transform: uppercase;
+  color: white;
 }
 .ui.menu {
   background-color: #097988;
+  font-size: 1.2rem;
+}
+.ui.menu .item > i.icon {
+  margin: 0;
+}
+.ui .stackable .menu:last-of-type(a) {
+  justify-self: flex-end;
 }
