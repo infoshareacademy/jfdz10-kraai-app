@@ -34,7 +34,9 @@ class PetProfile extends Component {
       metrics: {}
     },
     petId: null,
-    kind: {},
+    kind: {
+      pl: null
+    },
     size: {},
     sex: {},
     catBread: {},
