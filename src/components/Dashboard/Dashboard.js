@@ -33,6 +33,8 @@ class Dashboard extends React.Component {
     const data = [];
     const shelters = [];
 
+
+
     this.state.kinds.forEach(kind => {
       const numberOfKind = this.state.animals.filter(
         animal => animal.kindId === kind.id
@@ -44,8 +46,8 @@ class Dashboard extends React.Component {
       });
     });
 
-    const shelterCities = this.state.shelters.map(
-      shelter => shelter.address.city
+    const shelterCities = new Set(
+      this.state.shelters.map(shelter => shelter.address.city)
     );
     shelterCities.forEach(city => {
       const numberOfShelters = this.state.shelters.filter(
