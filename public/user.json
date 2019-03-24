@@ -4,6 +4,6 @@
   "login": "daria",
   "password": "daria123",
   "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQptem4x_Kmyr0PWXo-EDnGzME30xo2JzsWgaVXUHp-hIh53QiFaw",
-  "favAnimalId": [1,2],
+  "favAnimalId": [],
   "createdAnimalId": [1]
 }

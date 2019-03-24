@@ -3,7 +3,11 @@ import React, { Component } from "react";
 import { List, Image } from "semantic-ui-react";
 
 class Favorites extends Component {
+  state = {
+    userFavoriteAnimals : JSON.parse(localStorage.getItem('userFav')) || []
+  }
   render() {
+    const {userFavoriteAnimals} = this.state
     return (
       <React.Fragment>
         <h1>Ulubione</h1>
@@ -11,7 +15,7 @@ class Favorites extends Component {
           <List celled>
             {this.props.animals
               .filter(({ id }) =>
-                this.props.user.favAnimalId.some(uId => uId === id)
+                userFavoriteAnimals.some(uId => uId === id)
               )
               .map(animal => (
                 <List.Item key={animal.id}>
