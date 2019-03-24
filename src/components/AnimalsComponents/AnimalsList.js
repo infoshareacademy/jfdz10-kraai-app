@@ -35,9 +35,8 @@ class AnimalsList extends Component {
               <Card.Content>
                 <Fragment>
                   <Card.Header>{animal.name}</Card.Header>
-                  <Card.Meta>{animal.description}</Card.Meta>
                   <Card.Description>
-                    {`Aktualnie przebywa w ${animal.shelterId}`}
+                    {animal.description}
                   </Card.Description>
                 </Fragment>
               </Card.Content>
