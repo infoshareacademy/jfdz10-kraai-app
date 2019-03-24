@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { Component, Fragment } from "react";
 import { Card, Image } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
@@ -16,7 +15,7 @@ class AnimalsList extends Component {
     animals: [],
     filter: {
       name: "",
-      kind: '',
+      kind: "",
     }
   };
 
