@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import {Link} from 'react-router-dom';
+import {Icon} from 'semantic-ui-react';
 import HeaderCard from "./Header.js";
 import ShelterCard from "./ShelterCard.js";
 import SpecificationsTable from "./Specifications.js";
@@ -27,7 +29,8 @@ class ShelterProfile extends Component {
   render() {
     let shelter = this.state.shelter;
     return (
-      <>
+      <Fragment>
+      <Link to="/shelters"><Icon name="arrow left" size="big" float='left'/></Link>
         <div className="PetProfile">
           <HeaderCard name={shelter.name} />
         </div>
@@ -46,7 +49,7 @@ class ShelterProfile extends Component {
             postCode={shelter.address.postCode}
           />
         </div>
-      </>
+      </Fragment>
     );
   }
 }
