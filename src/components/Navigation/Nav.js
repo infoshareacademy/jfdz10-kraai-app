@@ -7,7 +7,7 @@ import "./Nav.css";
 const Nav = () => {
   return (
     <Menu stackable>
-      <NavLink className="item" exact to="/">
+      <NavLink className="item" exact to="/dashboard">
         <img src={Logo3} alt="Logo" />
       </NavLink>
 
