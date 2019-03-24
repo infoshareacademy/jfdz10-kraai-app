@@ -42,11 +42,12 @@ class AnimalsList extends Component {
     return this.state.animals.filter(animal => {
       const animalNameLowercase = animal.name.toLowerCase();
       const nameFilteredLowercase = this.state.filter.name.toLowerCase();
-      const animalKind = animal.kindId;
+      const animalKind = [animal.kindId];
       const kindFilter = this.state.filter.kind;
+      console.log(kindFilter);
       return (
         animalNameLowercase.includes(nameFilteredLowercase) &&
-        animalKind === kindFilter
+        (!kindFilter || animalKind.includes(kindFilter))
       );
     });
   }
@@ -64,7 +65,7 @@ class AnimalsList extends Component {
       <Fragment>
         <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
         <Card.Group doubling itemsPerRow={3} stackable>
-        {this.getFilteredAnimals().map(animal => (
+          {this.getFilteredAnimals().map(animal => (
             <Card key={animal.id}>
               <NavLink to={`animals/${animal.id}`}>
                 <Image src={animal.avatar} height="300px" />
