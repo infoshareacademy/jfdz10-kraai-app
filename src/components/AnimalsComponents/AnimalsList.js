@@ -41,7 +41,7 @@ class AnimalsList extends Component {
           {animals.map(animal => (
             <Card key={animal.id}>
               
-                <Image src={animal.avatar} />
+                <Image src={animal.avatar} height ='300px'/>
               
               <Card.Content>
                 

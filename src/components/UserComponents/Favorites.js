@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 
-import { List, Image } from "semantic-ui-react";
+import { List, Image, Icon } from "semantic-ui-react";
 
 class Favorites extends Component {
   state = {
     userFavoriteAnimals : JSON.parse(localStorage.getItem('userFav')) || []
   }
+  componentWillUnmount() {
+    localStorage.setItem("userFav", JSON.stringify(this.state.userFavoriteAnimals));
+  }
+
   render() {
     const {userFavoriteAnimals} = this.state
     return (
@@ -21,7 +25,19 @@ class Favorites extends Component {
                 <List.Item key={animal.id}>
                   <Image avatar src={animal.avatar} />
                   <List.Content>
-                    <List.Header>{animal.name}</List.Header>
+                    <List.Header>{animal.name} <Icon
+                        name="delete"
+                        color="black"
+                        size='normal'
+                        onClick={e =>
+                          this.setState(
+                            ({userFavoriteAnimals: userFavoriteAnimals.filter(
+                              id => id !== animal.id
+                            )})
+                          )
+                        }
+                      /></List.Header>
+                   
                   </List.Content>
                 </List.Item>
               ))}
