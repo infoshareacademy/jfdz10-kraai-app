@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from "react";
+import React, { Component } from "react";
 import HeaderCard from "./Header.js";
 import ShelterCard from "./ShelterCard.js";
 import SpecificationsTable from "./Specifications.js";

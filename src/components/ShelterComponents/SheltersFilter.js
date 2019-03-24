@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Input, Dropdown, Form } from "semantic-ui-react";
+import "./SheltersFilter.css";
 
 const polandRegions = fetch(
   "https://api-v3.mojepanstwo.pl/dane/wojewodztwa"
