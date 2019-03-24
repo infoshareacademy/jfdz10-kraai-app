@@ -39,8 +39,7 @@ class PetProfile extends Component {
     },
     size: {},
     sex: {},
-    catBread: {},
-    dogBread: {}
+    bread: {}
   };
 
   componentDidMount = () => {
@@ -48,41 +47,53 @@ class PetProfile extends Component {
       petId: parseFloat(this.props.match.params.id)
     });
 
-    pets().then(resolved =>
-      this.setState({
-        pet: resolved.find(pet => pet.id === this.state.petId)
-      })
-    );
-
-    kind().then(resolved =>
-      this.setState({
-        kind: resolved.find(kind => this.state.pet.kindId === kind.id)
-      })
-    );
-
-    size().then(resolved =>
-      this.setState({
-        size: resolved.find(size => size.id === this.state.pet.metrics.sizeId)
-      })
-    );
-
-    sex().then(resolved =>
-      this.setState({
-        sex: resolved.find(sex => sex.id === this.state.pet.metrics.sexId)
-      })
-    );
-
-    catBread().then(resolved =>
-      this.setState({
-        catBread: resolved
-      })
-    );
-
-    dogBread().then(resolved =>
-      this.setState({
-        dogBread: resolved
-      })
-    );
+    pets()
+      .then(resolved =>
+        this.setState({
+          pet: resolved.find(pet => pet.id === this.state.petId)
+        })
+      )
+      .then(() =>
+        kind().then(resolved =>
+          this.setState({
+            kind: resolved.find(kind => this.state.pet.kindId === kind.id)
+          })
+        )
+      )
+      .then(() =>
+        size().then(resolved =>
+          this.setState({
+            size: resolved.find(
+              size => size.id === this.state.pet.metrics.sizeId
+            )
+          })
+        )
+      )
+      .then(() =>
+        sex().then(resolved =>
+          this.setState({
+            sex: resolved.find(sex => sex.id === this.state.pet.metrics.sexId)
+          })
+        )
+      )
+      .then(
+        () =>
+          this.state.kind.pl === "Kot" &&
+          catBread().then(resolved =>
+            this.setState({
+              bread: resolved.find(bread => bread.id === this.state.pet.breadId)
+            })
+          )
+      )
+      .then(
+        () =>
+          this.state.kind.pl === "Pies" &&
+          dogBread().then(resolved =>
+            this.setState({
+              bread: resolved.find(bread => bread.id === this.state.pet.breadId)
+            })
+          )
+      );
   };
   render() {
     const pet = this.state.pet;
@@ -103,6 +114,7 @@ class PetProfile extends Component {
             description={pet.description}
             age={pet.metrics.age}
             sex={this.state.sex.pl}
+            bread={this.state.bread.pl}
           />
         </div>
       </Fragment>
