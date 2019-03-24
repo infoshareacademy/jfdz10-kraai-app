@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import  "./Dashboard.css"
-// import {Doughnut, Pie} from 'react-chartjs-2';
+import "./Dashboard.css";
 
 const PieChart = require("react-chartjs").Pie;
-
-
 
 class Dashboard extends React.Component {
   state = {
@@ -35,6 +32,8 @@ class Dashboard extends React.Component {
     const data = [];
     const shelters = [];
 
+
+
     this.state.kinds.forEach(kind => {
       const numberOfKind = this.state.animals.filter(
         animal => animal.kindId === kind.id
@@ -46,8 +45,8 @@ class Dashboard extends React.Component {
       });
     });
 
-    const shelterCities = this.state.shelters.map(
-      shelter => shelter.address.city
+    const shelterCities = new Set(
+      this.state.shelters.map(shelter => shelter.address.city)
     );
     shelterCities.forEach(city => {
       const numberOfShelters = this.state.shelters.filter(
@@ -60,15 +59,12 @@ class Dashboard extends React.Component {
       });
     });
 
-
-
-
     return (
       <div>
-        
-        <PieChart  data={data} width="250" height="250" />
-        <PieChart data={shelters} width="600" height="250" />
-      </div>
+       
+          <PieChart data={data} width="250" height="250"  />
+          <PieChart data={shelters} width="600" height="250" />
+</div>
     );
   }
 }
