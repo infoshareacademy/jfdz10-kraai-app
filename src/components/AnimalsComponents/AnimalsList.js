@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Card, Image, Icon } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
+import "./AnimalsList.css";
 
 const animals = () =>
   fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
@@ -50,11 +51,14 @@ class AnimalsList extends Component {
 
               <Card.Content>
                 <Fragment>
-                  <Card.Header>{animal.name}</Card.Header>
-                  <Card.Meta>{animal.description}</Card.Meta>
-                  <Card.Description>
-                    Aktualnie przebywa w {animal.shelterId}
-                  </Card.Description>
+                  <div className="content__wrapper">
+                    <Card.Header>{animal.name}</Card.Header>
+                    <Card.Meta>{animal.description}</Card.Meta>
+                    <Card.Description>
+                      Aktualnie przebywa w {animal.shelterId}
+                    </Card.Description>
+                  </div>
+
                   {!userFavoriteAnimals.some(
                     favAnimal => favAnimal === animal.id
                   ) ? (
