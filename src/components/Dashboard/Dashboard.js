@@ -1,8 +1,7 @@
 import React from "react";
 import ViewsLabel from "./ViewsLabel";
 import "./Dashboard.css";
-
-const PieChart = require("react-chartjs").Pie;
+import { Pie, Doughnut } from "react-chartjs-2";
 
 class Dashboard extends React.Component {
   state = {
@@ -33,6 +32,15 @@ class Dashboard extends React.Component {
     const data = [];
     const shelters = [];
 
+    const testData = {
+      labels: ["Koty", "Psy"],
+      datasets: [
+        {
+          data: [1, 2]
+        }
+      ]
+    };
+
     this.state.kinds.forEach(kind => {
       const numberOfKind = this.state.animals.filter(
         animal => animal.kindId === kind.id
@@ -58,10 +66,15 @@ class Dashboard extends React.Component {
       });
     });
 
+    const options = {
+      legend: {
+        position: "top",
+        display: true
+      }
+    };
     return (
       <div className="dashboard wrapper">
-        <PieChart data={data} width="250" height="250" />
-        <PieChart data={shelters} width="600" height="250" />
+        <Doughnut data={testData} options={options} />
         <ViewsLabel />
       </div>
     );
