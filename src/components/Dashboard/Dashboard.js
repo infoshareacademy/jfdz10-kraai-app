@@ -32,15 +32,6 @@ class Dashboard extends React.Component {
     const data = [];
     const shelters = [];
 
-    const testData = {
-      labels: ["Koty", "Psy"],
-      datasets: [
-        {
-          data: [1, 2]
-        }
-      ]
-    };
-
     this.state.kinds.forEach(kind => {
       const numberOfKind = this.state.animals.filter(
         animal => animal.kindId === kind.id
@@ -66,15 +57,31 @@ class Dashboard extends React.Component {
       });
     });
 
+    const dataTest = {
+      labels: ["Kot", "Pies"],
+      datasets: [
+        {
+          data: [1, 2],
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+        }
+      ]
+    };
+
     const options = {
       legend: {
+        display: true,
         position: "top",
-        display: true
+        fullWidth: true,
+        reverse: false,
+        labels: {
+          fontColor: "rgb(255, 99, 132)"
+        }
       }
     };
     return (
       <div className="dashboard wrapper">
-        <Doughnut data={testData} options={options} />
+        <Doughnut data={dataTest} options={options} />
         <ViewsLabel />
       </div>
     );
