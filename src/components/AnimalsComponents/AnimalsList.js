@@ -20,7 +20,9 @@ class AnimalsList extends Component {
     animals: [],
     filter: {
       name: "",
-      kind: ""
+      kind: "",
+      size: null,
+      sex: ""
     },
     user: {
       favAnimalId: []
@@ -44,10 +46,16 @@ class AnimalsList extends Component {
       const nameFilteredLowercase = this.state.filter.name.toLowerCase();
       const animalKind = [animal.kindId];
       const kindFilter = this.state.filter.kind;
-      console.log(kindFilter);
+      const animalSize = animal.metrics.sizeId;
+      const sizeFilter = this.state.filter.size;
+      const animalSex = animal.metrics.sexId;
+      const sexFilter = this.state.filter.sex;
+
       return (
         animalNameLowercase.includes(nameFilteredLowercase) &&
-        (!kindFilter || animalKind.includes(kindFilter))
+        (!kindFilter || animalKind.includes(kindFilter)) &&
+        (!sizeFilter || animalSize === sizeFilter) &&
+        (!sexFilter || animalSex === sexFilter)
       );
     });
   }
@@ -60,7 +68,7 @@ class AnimalsList extends Component {
   }
 
   render() {
-    const { animals, userFavoriteAnimals } = this.state;
+    const { userFavoriteAnimals } = this.state;
     return (
       <Fragment>
         <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
@@ -82,7 +90,7 @@ class AnimalsList extends Component {
                     favAnimal => favAnimal === animal.id
                   ) ? (
                     <Icon
-                      style={{cursor:'pointer', float: 'right'}}
+                      style={{ cursor: "pointer", float: "right" }}
                       name="heart outline"
                       color="black"
                       size="big"
@@ -97,7 +105,7 @@ class AnimalsList extends Component {
                     />
                   ) : (
                     <Icon
-                      style={{cursor:'pointer', float: 'right'}}
+                      style={{ cursor: "pointer", float: "right" }}
                       name="heart"
                       color="red"
                       size="big"
