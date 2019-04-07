@@ -3,13 +3,19 @@ import { Input, Dropdown, Form } from "semantic-ui-react";
 import "./AnimalsList.css";
 
 const kind = fetch("/kind.json").then(res => res.json());
+const size = fetch("/animal-size.json").then(res => res.json());
+const sex = fetch("/animal-sex.json").then(res => res.json());
 
 class AnimalsFilter extends Component {
   state = {
     kindFilter: "",
     nameFilter: "",
+    sizeFilter: null,
+    sexFilter: "",
     kindOptions: [],
-    animalOptions: []
+    animalOptions: [],
+    sizeOptions: [],
+    sexOptions: []
   };
 
   componentDidMount() {
@@ -22,16 +28,37 @@ class AnimalsFilter extends Component {
         }))
       )
       .then(kindArr => this.setState({ kindOptions: kindArr }));
+
+    size
+      .then(size =>
+        size.map(size => ({
+          key: size.id,
+          text: size.pl,
+          value: size.id
+        }))
+      )
+      .then(sizeArr => this.setState({ sizeOptions: sizeArr }));
+
+    sex
+      .then(sex =>
+        sex.map(sex => ({
+          key: sex.id,
+          text: sex.pl,
+          value: sex.id
+        }))
+      )
+      .then(sexArr => this.setState({ sexOptions: sexArr }));
   }
 
   filterCollection = () => ({
     kind: this.state.kindFilter,
-    name: this.state.nameFilter
+    name: this.state.nameFilter,
+    size: this.state.sizeFilter,
+    sex: this.state.sexFilter
   });
 
   onInputNameChange = event => {
     this.setState({ nameFilter: event.target.value }, () => {
-      console.log(this.filterCollection());
       this.props.onFilterChange(this.filterCollection());
     });
   };
@@ -42,8 +69,28 @@ class AnimalsFilter extends Component {
     );
   };
 
+  onDropdownSizeChange = (event, { value }) => {
+    this.setState({ sizeFilter: value }, () =>
+      this.props.onFilterChange(this.filterCollection())
+    );
+  };
+
+  onDropdownSexChange = (event, { value }) => {
+    this.setState({ sexFilter: value }, () =>
+      this.props.onFilterChange(this.filterCollection())
+    );
+  };
+
   render() {
-    const { kindFilter, nameFilter, kindOptions } = this.state;
+    const {
+      kindFilter,
+      nameFilter,
+      kindOptions,
+      sizeOptions,
+      sizeFilter,
+      sexFilter,
+      sexOptions
+    } = this.state;
     return (
       <Form>
         <Input
@@ -59,6 +106,24 @@ class AnimalsFilter extends Component {
           placeholder="Rodzaj zwierzaka..."
           value={kindFilter}
           onChange={this.onDropdownKindChange}
+        />
+        <Dropdown
+          clearable
+          options={sizeOptions}
+          selection
+          search
+          placeholder="Wielkość zwierzaka..."
+          value={sizeFilter}
+          onChange={this.onDropdownSizeChange}
+        />
+        <Dropdown
+          clearable
+          options={sexOptions}
+          selection
+          search
+          placeholder="Płeć zwierzaka..."
+          value={sexFilter}
+          onChange={this.onDropdownSexChange}
         />
       </Form>
     );
