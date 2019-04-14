@@ -4,8 +4,13 @@ import { Card , Icon, Image} from "semantic-ui-react";
 
 class PetCard extends Component {
 state ={
-  userFavoriteAnimals: JSON.parse(localStorage.getItem('userFav')) || []
+  userFavoriteAnimals: []
 }
+componentDidMount() {
+  this.setState({userFavoriteAnimals: JSON.parse(localStorage.getItem('userFav')) || []})
+}
+
+
 componentWillUnmount() {
   localStorage.setItem(
     "userFav",
