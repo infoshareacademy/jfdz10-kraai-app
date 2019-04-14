@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { Divider, Header, Icon, Table } from "semantic-ui-react";
+import firebase from 'firebase'
 
 const animalShelter = fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(response =>
   response.json()

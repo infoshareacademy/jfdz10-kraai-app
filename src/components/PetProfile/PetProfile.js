@@ -4,11 +4,9 @@ import PetCard from "./PetCard.js";
 import SpecificationsTable from "./Specifications.js";
 import {Icon} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
+import firebase from 'firebase'
 
-const pets = () =>
-  fetch("https://petlove-454b4.firebaseio.com/animals.json").then(response =>
-    response.json()
-  );
+
 const kind = () =>
   fetch("https://petlove-454b4.firebaseio.com/kind.json").then(response =>
     response.json()
@@ -48,11 +46,12 @@ class PetProfile extends Component {
     this.setState({
       petId: parseFloat(this.props.match.params.id)
     });
-
-    pets()
-      .then(resolved =>
+    const animalsRef = firebase.database().ref('animals')
+    animalsRef.once('value')
+      .then(snapshot => this.setState({ animals: snapshot.val() }))
+      .then( () =>
         this.setState({
-          pet: resolved.find(pet => pet.id === this.state.petId)
+          pet: this.state.animals.find(pet => pet.id === this.state.petId)
         })
       )
       .then(() =>
@@ -96,6 +95,9 @@ class PetProfile extends Component {
             })
           )
       );
+    animalsRef.on('value', snapshot => this.setState({ animals: snapshot.val() }));
+    
+      
   };
   render() {
     const pet = this.state.pet;
