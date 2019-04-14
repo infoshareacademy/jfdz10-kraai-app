@@ -4,29 +4,27 @@ import PetCard from "./PetCard.js";
 import SpecificationsTable from "./Specifications.js";
 import {Icon} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
+import firebase from 'firebase'
 
-const pets = () =>
-  fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
-    response.json()
-  );
+
 const kind = () =>
-  fetch(process.env.PUBLIC_URL + "/kind.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/kind.json").then(response =>
     response.json()
   );
 const size = () =>
-  fetch(process.env.PUBLIC_URL + "/animal-size.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/animal-size.json").then(response =>
     response.json()
   );
 const sex = () =>
-  fetch(process.env.PUBLIC_URL + "/animal-sex.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/animal-sex.json").then(response =>
     response.json()
   );
 const catBread = () =>
-  fetch(process.env.PUBLIC_URL + "/cat-bread.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/cat-bread.json").then(response =>
     response.json()
   );
 const dogBread = () =>
-  fetch(process.env.PUBLIC_URL + "/dog-bread.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/dog-bread.json").then(response =>
     response.json()
   );
 
@@ -48,11 +46,12 @@ class PetProfile extends Component {
     this.setState({
       petId: parseFloat(this.props.match.params.id)
     });
-
-    pets()
-      .then(resolved =>
+    const animalsRef = firebase.database().ref('animals')
+    animalsRef.once('value')
+      .then(snapshot => this.setState({ animals: snapshot.val() }))
+      .then( () =>
         this.setState({
-          pet: resolved.find(pet => pet.id === this.state.petId)
+          pet: this.state.animals.find(pet => pet.id === this.state.petId)
         })
       )
       .then(() =>
@@ -96,6 +95,9 @@ class PetProfile extends Component {
             })
           )
       );
+    animalsRef.on('value', snapshot => this.setState({ animals: snapshot.val() }));
+    
+      
   };
   render() {
     const pet = this.state.pet;
@@ -121,6 +123,7 @@ class PetProfile extends Component {
             age={pet.metrics.age}
             sex={this.state.sex.pl}
             bread={this.state.bread.pl}
+            shelter={this.state.pet.shelterId}
           />
         </div>
       </Fragment>

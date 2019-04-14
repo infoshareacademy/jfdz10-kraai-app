@@ -22,7 +22,6 @@ const Nav = () => {
       <NavLink className="item" to="/tinder-mode" name="tinder-mode">
         Tinder mode
       </NavLink>
-
       <NavLink className="item" to="/profil/mydata" name="profil">
         <Icon name="user circle" className="nav__user" size="big" />
       </NavLink>
