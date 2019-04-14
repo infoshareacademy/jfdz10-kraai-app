@@ -22,18 +22,19 @@ const Nav = () => {
       {/* <NavLink className="item" to="/tinder-mode" name="tinder-mode">
         Tinder mode
       </NavLink> */}
+      <Menu.Menu position="right">
+        <NavLink id="user" className="item" to="/profil/mydata" name="profil">
+          <Icon name="user circle" className="nav__user" size="big" />
+        </NavLink>
 
-      <NavLink className="item" to="/profil/mydata" name="profil">
-        <Icon name="user circle" className="nav__user" size="big" />
-      </NavLink>
-      
-      <NavLink className="item" to="/signup" name="features">
-        Zarejestruj się
-      </NavLink>
+        <NavLink id="user" className="item" to="/signup" name="features">
+          Zarejestruj się
+        </NavLink>
 
-      <NavLink className="item" to="/signin" name="features">
-        Zaloguj się
-      </NavLink>
+        <NavLink menuid="user" className="item" to="/signin" name="features">
+          Zaloguj się
+        </NavLink>
+      </Menu.Menu>
     </Menu>
   );
 };

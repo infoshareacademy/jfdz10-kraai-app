@@ -2,15 +2,13 @@ import React, { Component, Fragment } from "react";
 import { Card, Image, Icon } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import "./AnimalsList.css";
+import firebase from 'firebase';
 
 import AnimalsFilter from "./AnimalsFilter";
 
-const animals = () =>
-  fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
-    response.json()
-  );
+
 const user = () =>
-  fetch(process.env.PUBLIC_URL + "/user.json").then(response =>
+  fetch("/user.json").then(response =>
     response.json()
   );
 
@@ -31,13 +29,16 @@ class AnimalsList extends Component {
   };
 
   componentDidMount() {
-    animals().then(animals => this.setState({ animals: animals }));
+    const animalsRef = firebase.database().ref('animals')
+    animalsRef.once('value').then(snapshot => this.setState({ animals: snapshot.val() }));
+    animalsRef.on('value', snapshot => this.setState({ animals: snapshot.val() }));
+    
     user().then(user => this.setState({ user }));
-    if (localStorage.getItem("userFav")) {
+  
       this.setState({
-        userFavoriteAnimals: JSON.parse(localStorage.getItem("userFav"))
+        userFavoriteAnimals: JSON.parse(localStorage.getItem("userFav") || [])
       });
-    }
+    
   }
 
   getFilteredAnimals() {
@@ -59,7 +60,7 @@ class AnimalsList extends Component {
       );
     });
   }
-
+ 
   componentWillUnmount() {
     localStorage.setItem(
       "userFav",

@@ -9,6 +9,8 @@ import {
   Segment
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
+import firebase from "firebase";
+import "./UserPanel.css";
 
 class SignUp extends Component {
   state = {
@@ -16,34 +18,27 @@ class SignUp extends Component {
     password: ""
   };
 
-  handleInputEmailChange = e => {
+  handleSignUpInputChange = e => {
     this.setState({
-      email: e.target.value
+      [e.currentTarget.name]: e.target.value
     });
   };
 
-  handleInputPasswordChange = e => {
-    this.setState({
-      password: e.target.value
-    });
-  };
-
-  handleFormSubmit = e => {
-    e.preventDefault();
+  handleSignUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(function() {
+        alert(`Zarejestrowano pomyślnie`);
+      })
+      .catch(function(error) {
+        return console.log(`${error.code} ${error.message}`);
+      });
   };
 
   render() {
     return (
       <div className="login-form">
-        <style>
-          {`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-      }
-    `}
-        </style>
         <Grid
           textAlign="center"
           style={{ height: "100%" }}
@@ -53,10 +48,7 @@ class SignUp extends Component {
             <Header as="h2" color="teal" textAlign="center">
               <Image src={logo} /> Zarejestruj się
             </Header>
-            <Form
-              size="large"
-              onSubmit={this.handleFormSubmit}
-            >
+            <Form size="large" onSubmit={this.handleSignUp}>
               <Segment stacked>
                 <Form.Input
                   fluid
@@ -64,7 +56,7 @@ class SignUp extends Component {
                   icon="user"
                   iconPosition="left"
                   placeholder="E-mail address"
-                  onChange={this.handleInputEmailChange}
+                  onChange={this.handleSignUpInputChange}
                 />
                 <Form.Input
                   fluid
@@ -73,7 +65,7 @@ class SignUp extends Component {
                   iconPosition="left"
                   placeholder="Password"
                   type="password"
-                  onChange={this.handleInputPasswordChange}
+                  onChange={this.handleSignUpInputChange}
                 />
 
                 <Button type="submit" color="teal" fluid size="large">

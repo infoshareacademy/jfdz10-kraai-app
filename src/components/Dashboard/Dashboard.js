@@ -1,6 +1,7 @@
 import React from "react";
 import ViewsLabel from "./ViewsLabel";
 import "./Dashboard.css";
+import firebase from 'firebase'
 
 const PieChart = require("react-chartjs").Pie;
 
@@ -12,21 +13,17 @@ class Dashboard extends React.Component {
   };
 
   componentDidMount() {
-    fetch("animals.json")
-      .then(results => {
-        return results.json();
-      })
-      .then(animals => this.setState({ animals }));
+    const animalsRef = firebase.database().ref('animals')
+    animalsRef.once('value').then(snapshot => this.setState({ animals: snapshot.val() }));
+    animalsRef.on('value', snapshot => this.setState({ animals: snapshot.val() }));
+
+    const sheltersRef = firebase.database().ref('shelters')
+    sheltersRef.once('value').then(snapshot => this.setState({ shelters: snapshot.val() }));
+    sheltersRef.on('value', snapshot => this.setState({ shelters: snapshot.val() }));
 
     fetch("kind.json")
       .then(r => r.json())
       .then(kinds => this.setState({ kinds }));
-
-    fetch("shelters.json")
-      .then(results2 => {
-        return results2.json();
-      })
-      .then(shelters => this.setState({ shelters }));
   }
 
   render() {

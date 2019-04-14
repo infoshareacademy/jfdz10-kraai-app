@@ -6,7 +6,7 @@ const polandRegions = fetch(
   "https://api-v3.mojepanstwo.pl/dane/wojewodztwa"
 ).then(resp => resp.json());
 
-const shelters = fetch("/shelters.json").then(resp => resp.json());
+const shelters = fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(resp => resp.json());
 
 class SheltersFilter extends Component {
   state = {

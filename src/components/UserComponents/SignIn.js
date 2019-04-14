@@ -9,6 +9,8 @@ import {
   Segment
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
+import firebase from "firebase";
+import "./UserPanel.css";
 
 class SignIn extends Component {
   state = {
@@ -22,9 +24,28 @@ class SignIn extends Component {
     });
   };
 
-  handleFormSubmit = e => {
-    e.preventDefault();
-    
+  handleSignIn = () => {
+    return firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(function() {
+        alert(`Zalogowano pomyślnie`);
+      })
+      .catch(function(error) {
+        return alert(`${error.code} ${error.message}`);
+      });
+  };
+
+  signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function() {
+        alert(`Wylogowano pomyślnie`);
+      })
+      .catch(function(error) {
+        return `${error.code} ${error.message}`;
+      });
   };
 
   render() {
@@ -32,12 +53,8 @@ class SignIn extends Component {
       <div className="login-form">
         <style>
           {`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-      }
-    `}
+      
+      `}
         </style>
         <Grid
           textAlign="center"
@@ -48,7 +65,7 @@ class SignIn extends Component {
             <Header as="h2" color="teal" textAlign="center">
               <Image src={logo} /> Zaloguj się
             </Header>
-            <Form size="large" onSubmit={this.handleFormSubmit}>
+            <Form size="large" onSubmit={this.handleSignIn}>
               <Segment stacked>
                 <Form.Input
                   name="email"
@@ -70,6 +87,9 @@ class SignIn extends Component {
 
                 <Button color="teal" fluid size="large">
                   Zaloguj
+                </Button>
+                <Button onClick={this.signOut} color="teal" fluid size="large">
+                  wyloguj
                 </Button>
               </Segment>
             </Form>
