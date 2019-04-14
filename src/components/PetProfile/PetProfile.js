@@ -6,27 +6,27 @@ import {Icon} from 'semantic-ui-react'
 import {Link} from "react-router-dom";
 
 const pets = () =>
-  fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/animals.json").then(response =>
     response.json()
   );
 const kind = () =>
-  fetch(process.env.PUBLIC_URL + "/kind.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/kind.json").then(response =>
     response.json()
   );
 const size = () =>
-  fetch(process.env.PUBLIC_URL + "/animal-size.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/animal-size.json").then(response =>
     response.json()
   );
 const sex = () =>
-  fetch(process.env.PUBLIC_URL + "/animal-sex.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/animal-sex.json").then(response =>
     response.json()
   );
 const catBread = () =>
-  fetch(process.env.PUBLIC_URL + "/cat-bread.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/cat-bread.json").then(response =>
     response.json()
   );
 const dogBread = () =>
-  fetch(process.env.PUBLIC_URL + "/dog-bread.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/dog-bread.json").then(response =>
     response.json()
   );
 

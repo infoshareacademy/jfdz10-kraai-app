@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Input, Dropdown, Form } from "semantic-ui-react";
 import "./AnimalsList.css";
 
-const kind = fetch("/kind.json").then(res => res.json());
-const size = fetch("/animal-size.json").then(res => res.json());
-const sex = fetch("/animal-sex.json").then(res => res.json());
+const kind = fetch("https://petlove-454b4.firebaseio.com/kind.json").then(res => res.json());
+const size = fetch("https://petlove-454b4.firebaseio.com/animal-size.json").then(res => res.json());
+const sex = fetch("https://petlove-454b4.firebaseio.com/animal-sex.json").then(res => res.json());
 
 class AnimalsFilter extends Component {
   state = {

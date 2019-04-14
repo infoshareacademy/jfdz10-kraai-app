@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Divider, Header, Icon, Table } from "semantic-ui-react";
 
-const animalShelter = fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
+const animalShelter = fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(response =>
   response.json()
 );
 

@@ -6,11 +6,11 @@ import "./AnimalsList.css";
 import AnimalsFilter from "./AnimalsFilter";
 
 const animals = () =>
-  fetch(process.env.PUBLIC_URL + "/animals.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/animals.json").then(response =>
     response.json()
   );
 const user = () =>
-  fetch(process.env.PUBLIC_URL + "/user.json").then(response =>
+  fetch("/user.json").then(response =>
     response.json()
   );
 
