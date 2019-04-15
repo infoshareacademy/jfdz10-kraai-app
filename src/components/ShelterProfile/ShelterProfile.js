@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import {Link} from 'react-router-dom';
+import {Icon} from 'semantic-ui-react';
 import HeaderCard from "./Header.js";
 import ShelterCard from "./ShelterCard.js";
 import SpecificationsTable from "./Specifications.js";
 
 const shelters = () =>
-  fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(response =>
     response.json()
   );
 class ShelterProfile extends Component {
@@ -27,7 +29,8 @@ class ShelterProfile extends Component {
   render() {
     let shelter = this.state.shelter;
     return (
-      <>
+      <Fragment>
+      <Link to="/shelters"><Icon name="arrow left" size="big" float='left'/></Link>
         <div className="PetProfile">
           <HeaderCard name={shelter.name} />
         </div>
@@ -46,7 +49,7 @@ class ShelterProfile extends Component {
             postCode={shelter.address.postCode}
           />
         </div>
-      </>
+      </Fragment>
     );
   }
 }

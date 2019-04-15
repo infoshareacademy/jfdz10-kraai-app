@@ -4,7 +4,7 @@ import SheltersFilter from "./SheltersFilter";
 import { NavLink } from "react-router-dom";
 
 const shelters = () =>
-  fetch(process.env.PUBLIC_URL + "/shelters.json").then(response =>
+  fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(response =>
     response.json()
   );
 
