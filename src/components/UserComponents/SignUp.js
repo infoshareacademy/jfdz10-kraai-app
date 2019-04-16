@@ -31,9 +31,18 @@ class SignUp extends Component {
       .then(function() {
         alert(`Zarejestrowano pomyślnie`);
       })
+      .then(this.handleOnAuthStateChanged)
       .catch(function(error) {
-        return console.log(`${error.code} ${error.message}`);
+        return alert(`Adres email w użyciu. Wpisz inny adres.`);
       });
+  };
+
+  handleOnAuthStateChanged = () => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        window.location = "/";
+      }
+    });
   };
 
   render() {

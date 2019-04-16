@@ -25,37 +25,38 @@ class SignIn extends Component {
   };
 
   handleSignIn = () => {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(function() {
-        alert(`Zalogowano pomyślnie`);
-      })
-      .catch(function(error) {
-        return alert(`${error.code} ${error.message}`);
-      });
+    return (
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.state.email, this.state.password)
+        .then(this.handleOnAuthStateChanged)
+        .catch(function(error) {
+          return alert(`Nie znaleziono użytkownika.`);
+        })
+    );
   };
 
-  signOut = () => {
+  handleSignOut = () => {
     firebase
       .auth()
       .signOut()
-      .then(function() {
-        alert(`Wylogowano pomyślnie`);
-      })
+      .then()
       .catch(function(error) {
         return `${error.code} ${error.message}`;
       });
   };
 
+  handleOnAuthStateChanged = () => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        window.location = "/profil/mydata";
+      }
+    });
+  };
+
   render() {
     return (
       <div className="login-form">
-        <style>
-          {`
-      
-      `}
-        </style>
         <Grid
           textAlign="center"
           style={{ height: "100%" }}
@@ -65,7 +66,7 @@ class SignIn extends Component {
             <Header as="h2" color="teal" textAlign="center">
               <Image src={logo} /> Zaloguj się
             </Header>
-            <Form size="large" onSubmit={this.handleSignIn}>
+            <Form size="large">
               <Segment stacked>
                 <Form.Input
                   name="email"
@@ -85,11 +86,22 @@ class SignIn extends Component {
                   onChange={this.handleInputChange}
                 />
 
-                <Button color="teal" fluid size="large">
+                <Button
+                  color="teal"
+                  fluid
+                  size="large"
+                  onClick={this.handleSignIn}
+                >
                   Zaloguj
                 </Button>
-                <Button onClick={this.signOut} color="teal" fluid size="large">
-                  wyloguj
+                <Button
+                  style={{ marginTop: "10px" }}
+                  onClick={this.handleSignOut}
+                  color="teal"
+                  fluid
+                  size="large"
+                >
+                  Wyloguj
                 </Button>
               </Segment>
             </Form>
@@ -102,4 +114,5 @@ class SignIn extends Component {
     );
   }
 }
+
 export default SignIn;

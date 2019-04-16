@@ -19,20 +19,22 @@ const Nav = () => {
         Zwierzaki
       </NavLink>
 
-      {/* <NavLink className="item" to="/tinder-mode" name="tinder-mode">
-        Tinder mode
-      </NavLink> */}
       <Menu.Menu position="right">
-        <NavLink id="user" className="item" to="/profil/mydata" name="profil">
+        <NavLink
+          id="nav-profile"
+          className="item"
+          to="/profil/mydata"
+          name="profil"
+        >
           <Icon name="user circle" className="nav__user" size="big" />
         </NavLink>
 
-        <NavLink id="user" className="item" to="/signup" name="features">
+        <NavLink id="nav-sign-up" className="item" to="/signup" name="features">
           Zarejestruj się
         </NavLink>
 
-        <NavLink menuid="user" className="item" to="/signin" name="features">
-          Zaloguj się
+        <NavLink id="nav-sign-in" className="item" to="/signin" name="features">
+          Zaloguj
         </NavLink>
       </Menu.Menu>
     </Menu>
