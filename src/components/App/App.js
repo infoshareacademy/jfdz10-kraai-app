@@ -8,8 +8,8 @@ import UserPanel from "../UserComponents/UserPanel";
 import SheltersList from "../ShelterComponents/SheltersList";
 import AnimalsList from "../AnimalsComponents/AnimalsList";
 import Dashboard from "../Dashboard/Dashboard";
-import SignIn from "../UserComponents/SignIn";
-import SignUp from "../UserComponents/SignUp";
+import SignIn from "../SignComponents/SignIn";
+import SignUp from "../SignComponents/SignUp";
 import firebase from "firebase";
 
 const config = {

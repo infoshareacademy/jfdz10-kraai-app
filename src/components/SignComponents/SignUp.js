@@ -10,46 +10,37 @@ import {
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
 import firebase from "firebase";
-import "./UserPanel.css";
+import "./Sign.css";
 
-class SignIn extends Component {
+class SignUp extends Component {
   state = {
     email: "",
     password: ""
   };
 
-  handleInputChange = e => {
+  handleSignUpInputChange = e => {
     this.setState({
       [e.currentTarget.name]: e.target.value
     });
   };
 
-  handleSignIn = () => {
-    return (
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(this.handleOnAuthStateChanged)
-        .catch(function(error) {
-          return alert(`Nie znaleziono użytkownika.`);
-        })
-    );
-  };
-
-  handleSignOut = () => {
+  handleSignUp = () => {
     firebase
       .auth()
-      .signOut()
-      .then()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(function() {
+        alert(`Zarejestrowano pomyślnie`);
+      })
+      .then(this.handleOnAuthStateChanged)
       .catch(function(error) {
-        return `${error.code} ${error.message}`;
+        return alert(`Adres email w użyciu. Wpisz inny adres.`);
       });
   };
 
   handleOnAuthStateChanged = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        window.location = "/profil/mydata";
+        window.location = "/";
       }
     });
   };
@@ -64,17 +55,17 @@ class SignIn extends Component {
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as="h2" color="teal" textAlign="center">
-              <Image src={logo} /> Zaloguj się
+              <Image src={logo} /> Zarejestruj się
             </Header>
-            <Form size="large">
+            <Form size="large" onSubmit={this.handleSignUp}>
               <Segment stacked>
                 <Form.Input
-                  name="email"
                   fluid
+                  name="email"
                   icon="user"
                   iconPosition="left"
                   placeholder="E-mail address"
-                  onChange={this.handleInputChange}
+                  onChange={this.handleSignUpInputChange}
                 />
                 <Form.Input
                   fluid
@@ -83,30 +74,16 @@ class SignIn extends Component {
                   iconPosition="left"
                   placeholder="Password"
                   type="password"
-                  onChange={this.handleInputChange}
+                  onChange={this.handleSignUpInputChange}
                 />
 
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  onClick={this.handleSignIn}
-                >
-                  Zaloguj
-                </Button>
-                <Button
-                  style={{ marginTop: "10px" }}
-                  onClick={this.handleSignOut}
-                  color="teal"
-                  fluid
-                  size="large"
-                >
-                  Wyloguj
+                <Button type="submit" color="teal" fluid size="large">
+                  Zarejestruj
                 </Button>
               </Segment>
             </Form>
             <Message>
-              Nie masz konta? <a href="signup">Dolącz do nas!</a>
+              Masz już konto? <a href="signin">Zaloguj się!</a>
             </Message>
           </Grid.Column>
         </Grid>
@@ -114,5 +91,4 @@ class SignIn extends Component {
     );
   }
 }
-
-export default SignIn;
+export default SignUp;
