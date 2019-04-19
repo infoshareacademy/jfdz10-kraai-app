@@ -1,14 +1,18 @@
 import React from "react";
 import ViewsLabel from "./ViewsLabel";
 import "./Dashboard.css";
-import { Doughnut } from "react-chartjs-2";
 import firebase from "firebase";
+import DogAnimals from "./DogAnimals"
 
 class Dashboard extends React.Component {
     state = {
         animals: [],
         kinds: [],
-        shelters: []
+        shelters: [],
+        animData: [],
+        animOptions: [],
+        sheltersData: [],
+        sheltersOptions: []
     };
 
     componentDidMount() {
@@ -75,7 +79,7 @@ class Dashboard extends React.Component {
         return shelters;
     }
 
-    set AnimalsDoughnut(animals) {
+    setAnimalsDoughnut(animals) {
         const data = {
             labels: animals.map(i => i.label),
             datasets: [
@@ -86,6 +90,10 @@ class Dashboard extends React.Component {
                 }
             ]
         };
+
+        this.setState({
+            animData = data
+        })
 
         const options = {
             legend: {
@@ -98,16 +106,16 @@ class Dashboard extends React.Component {
                 }
             }
         };
-    }
-
-    set SheltersDoughnut(shelters) {
-        console.log(shelters);
+       this.setState({
+           animOptions = options
+       })
     }
 
     render() {
         this.handleData();
         return (
             <div className="dashboard wrapper">
+            <DogAnimals data={this.animData} options={this.animOptions}/>
                 <ViewsLabel />
             </div>
         );
