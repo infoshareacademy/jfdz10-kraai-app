@@ -8,7 +8,9 @@ import UserPanel from "../UserComponents/UserPanel";
 import SheltersList from "../ShelterComponents/SheltersList";
 import AnimalsList from "../AnimalsComponents/AnimalsList";
 import Dashboard from "../Dashboard/Dashboard";
-import firebase from 'firebase'
+import SignIn from "../SignComponents/SignIn";
+import SignUp from "../SignComponents/SignUp";
+import firebase from "firebase";
 
 const config = {
   apiKey: "AIzaSyBlmKoFWb3srpjFo9AQd2TcYamgR-hZckM",
@@ -31,6 +33,8 @@ class App extends Component {
           <Route exact path="/animals" component={AnimalsList} />
           <Route exact path="/tinder-mode" component={() => <h1>tinder</h1>} />
           <Route path="/profil" component={UserPanel} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
           <Route exact path="/animals/:id" component={PetProfile} />
           <Route exact path="/shelters/:id" component={ShelterProfile} />
         </div>
