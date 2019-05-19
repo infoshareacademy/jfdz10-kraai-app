@@ -5,16 +5,27 @@ import "semantic-ui-css/semantic.min.css";
 import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
+import {Provider as ReduxProvider} from 'react-redux'
+import configureStore from './store.js'
 
-const AppWithRouter = () => (
-  <Router>
-    <App />
-  </Router>
-);
+const AppWithRouterAndRedux = () => {
+  return (
+    <Router>
+      <ReduxProvider store={configureStore()}>
+        <App />
+      </ReduxProvider>
+    </Router>
+  )
+}
 
-ReactDOM.render(<AppWithRouter />, document.getElementById("root"));
+ReactDOM.render(<AppWithRouterAndRedux />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+
+
+
