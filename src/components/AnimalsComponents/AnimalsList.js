@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from "react";
+import {connect} from 'react-redux'
 import { Card, Image, Icon } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import "./AnimalsList.css";
 import firebase from 'firebase';
 
 import AnimalsFilter from "./AnimalsFilter";
+import {fetchAnimals} from '../../actions/animals'
 
 
 const user = () =>
@@ -14,8 +16,6 @@ const user = () =>
 
 class AnimalsList extends Component {
   state = {
-    loading: true,
-    animals: [],
     filter: {
       name: "",
       kind: "",
@@ -29,9 +29,7 @@ class AnimalsList extends Component {
   };
 
   componentDidMount() {
-    const animalsRef = firebase.database().ref('animals')
-    animalsRef.once('value').then(snapshot => this.setState({ animals: snapshot.val() }));
-    animalsRef.on('value', snapshot => this.setState({ animals: snapshot.val() }));
+    this.props.fetchAnimals()
     
     user().then(user => this.setState({ user }));
   
@@ -42,7 +40,7 @@ class AnimalsList extends Component {
   }
 
   getFilteredAnimals() {
-    return this.state.animals.filter(animal => {
+    return this.props.animals.filter(animal => {
       const animalNameLowercase = animal.name.toLowerCase();
       const nameFilteredLowercase = this.state.filter.name.toLowerCase();
       const animalKind = [animal.kindId];
@@ -128,5 +126,15 @@ class AnimalsList extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  animals: state.animals.animals,
+});
 
-export default AnimalsList;
+const mapDispatchToProps = {
+  fetchAnimals
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AnimalsList);

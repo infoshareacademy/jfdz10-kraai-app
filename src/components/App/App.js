@@ -10,17 +10,9 @@ import AnimalsList from "../AnimalsComponents/AnimalsList";
 import Dashboard from "../Dashboard/Dashboard";
 import SignIn from "../SignComponents/SignIn";
 import SignUp from "../SignComponents/SignUp";
-import firebase from "firebase";
 
-const config = {
-  apiKey: "AIzaSyBlmKoFWb3srpjFo9AQd2TcYamgR-hZckM",
-  authDomain: "petlove-454b4.firebaseapp.com",
-  databaseURL: "https://petlove-454b4.firebaseio.com",
-  projectId: "petlove-454b4",
-  storageBucket: "petlove-454b4.appspot.com",
-  messagingSenderId: "354540208231"
-};
-firebase.initializeApp(config);
+
+
 
 class App extends Component {
   render() {

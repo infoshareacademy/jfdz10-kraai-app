@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux'
 import {
   Button,
   Form,
@@ -12,6 +13,8 @@ import logo from "../../img/logo.png";
 import firebase from "firebase";
 import "./Sign.css";
 
+import {signIn, emailInputChange , passwordInputChange, clearInputs} from '../../actions/auth'
+
 class SignIn extends Component {
   state = {
     email: "",
@@ -19,42 +22,26 @@ class SignIn extends Component {
   };
 
   handleInputChange = e => {
-    this.setState({
-      [e.currentTarget.name]: e.target.value
-    });
+    e.currentTarget.name === 'email' ?
+    this.props.emailInputChange(e.target.value) :
+    this.props.passwordInputChange(e.target.value)
   };
 
-  handleSignIn = () => {
-    return (
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(this.handleOnAuthStateChanged)
-        .catch(function(error) {
-          return alert(`Nie znaleziono użytkownika.`);
-        })
-    );
+  handleSignIn = (e) => {
+    e.preventDefault()
+    this.props.signIn()
   };
 
   handleSignOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then()
-      .catch(function(error) {
-        return `${error.code} ${error.message}`;
-      });
+    
   };
 
-  handleOnAuthStateChanged = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        window.location = "/profil/mydata";
-      }
-    });
-  };
+  componentWillUnmount(){
+    this.props.clearInputs()
+  }
 
   render() {
+    const {emailInput, passwordInput} = this.props
     return (
       <div className="login-form">
         <Grid
@@ -66,7 +53,7 @@ class SignIn extends Component {
             <Header as="h2" color="teal" textAlign="center">
               <Image src={logo} /> Zaloguj się
             </Header>
-            <Form size="large">
+            <Form size="large" onSubmit={(e) => this.handleSignIn(e)}>
               <Segment stacked>
                 <Form.Input
                   name="email"
@@ -74,6 +61,7 @@ class SignIn extends Component {
                   icon="user"
                   iconPosition="left"
                   placeholder="E-mail address"
+                  value={emailInput}
                   onChange={this.handleInputChange}
                 />
                 <Form.Input
@@ -83,6 +71,7 @@ class SignIn extends Component {
                   iconPosition="left"
                   placeholder="Password"
                   type="password"
+                  value={passwordInput}
                   onChange={this.handleInputChange}
                 />
 
@@ -90,7 +79,7 @@ class SignIn extends Component {
                   color="teal"
                   fluid
                   size="large"
-                  onClick={this.handleSignIn}
+                  type='submit'
                 >
                   Zaloguj
                 </Button>
@@ -114,5 +103,17 @@ class SignIn extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  emailInput: state.auth.emailInput,
+  passwordInput: state.auth.passwordInput
+});
 
-export default SignIn;
+const mapDispatchToProps = {
+  signIn,
+  emailInputChange,
+  passwordInputChange,
+  clearInputs
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

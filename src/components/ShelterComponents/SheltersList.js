@@ -1,17 +1,13 @@
 import React, { Component, Fragment } from "react";
+import {connect} from 'react-redux'
 import { Card, Image } from "semantic-ui-react";
 import SheltersFilter from "./SheltersFilter";
 import { NavLink } from "react-router-dom";
 
-const shelters = () =>
-  fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(response =>
-    response.json()
-  );
+import {fetchShelters} from '../../actions/shelters'
 
 class SheltersList extends Component {
   state = {
-    loading: true,
-    shelters: [],
     filters: {
       name: "",
       region: "",
@@ -20,12 +16,11 @@ class SheltersList extends Component {
   };
 
   componentDidMount() {
-    shelters().then(shelters => this.setState({ shelters }));
-    setTimeout(() => this.setState({ loading: false }));
+    this.props.fetchShelters()
   }
 
   getFilteredShelters() {
-    return this.state.shelters.filter(shelter => {
+    return this.props.shelters.filter(shelter => {
       const shelterNameLowercase = shelter.name.toLowerCase();
       const nameFiltereLowercase = this.state.filters.name.toLowerCase();
       const shelterRegion = shelter.address.region;
@@ -78,4 +73,15 @@ class SheltersList extends Component {
   }
 }
 
-export default SheltersList;
+const mapStateToProps = state => ({
+  shelters: state.shelters.shelters,
+});
+
+const mapDispatchToProps = {
+  fetchShelters
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SheltersList);
