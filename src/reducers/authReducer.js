@@ -1,4 +1,4 @@
-import {SIGN_IN_UP, EMAIL_INPUT_CHANGE, PASSWORD_INPUT_CHANGE, CLEAR_INPUTS} from '../actions/auth'
+import {SIGN_IN_UP, EMAIL_INPUT_CHANGE, PASSWORD_INPUT_CHANGE, CLEAR_INPUTS, LOG_OUT} from '../actions/auth'
 
 const initialState = {
      emailInput : '',
@@ -35,6 +35,12 @@ const initialState = {
                 passwordInput: ''
             }
         }
+        case LOG_OUT: {
+          return {
+              ...state,
+              user: null
+          }
+      }
       default: {
         return state
       }

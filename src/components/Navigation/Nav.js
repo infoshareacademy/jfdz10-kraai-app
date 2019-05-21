@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Menu, Icon } from "semantic-ui-react";
 import Logo3 from "../../img/logo3.png";
 import "./Nav.css";
+import { logOut } from "../../actions/auth";
 
-const Nav = () => {
+const Nav = ({ logOut, user }) => {
   return (
     <Menu stackable>
       <NavLink className="item" exact to="/">
@@ -20,25 +22,59 @@ const Nav = () => {
       </NavLink>
 
       <Menu.Menu position="right">
-        <NavLink
-          id="nav-profile"
-          className="item"
-          to="/profil/mydata"
-          name="profil"
-        >
-          <Icon name="user circle" className="nav__user" size="big" />
-        </NavLink>
-
-        <NavLink id="nav-sign-up" className="item" to="/signup" name="features">
-          Zarejestruj się
-        </NavLink>
-
-        <NavLink id="nav-sign-in" className="item" to="/signin" name="features">
-          Zaloguj
-        </NavLink>
+        {user ? (
+          <Fragment>
+            <NavLink
+              id="nav-profile"
+              className="item"
+              to="/profil/mydata"
+              name="profil"
+            >
+              <Icon name="user circle" className="nav__user" size="big" />
+            </NavLink>
+            <a
+              id="nav-log-out"
+              className="item"
+              name="features"
+              onClick={() => logOut()}
+            >
+              Wyloguj{" "}
+            </a>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <NavLink
+              id="nav-sign-up"
+              className="item"
+              to="/signup"
+              name="features"
+            >
+              Zarejestruj się
+            </NavLink>
+            <NavLink
+              id="nav-sign-in"
+              className="item"
+              to="/signin"
+              name="features"
+            >
+              Zaloguj
+            </NavLink>
+          </Fragment>
+        )}
       </Menu.Menu>
     </Menu>
   );
 };
 
-export default Nav;
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
+
+const mapDispatchToProps = {
+  logOut
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nav);

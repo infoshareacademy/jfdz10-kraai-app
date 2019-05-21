@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Redirect, NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   Button,
   Form,
@@ -9,44 +11,35 @@ import {
   Segment
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
-import firebase from "firebase";
 import "./Sign.css";
+import {
+  signUp,
+  emailInputChange,
+  passwordInputChange,
+  clearInputs
+} from "../../actions/auth";
 
 class SignUp extends Component {
-  state = {
-    email: "",
-    password: ""
+  handleInputChange = e => {
+    e.currentTarget.name === "email"
+      ? this.props.emailInputChange(e.target.value)
+      : this.props.passwordInputChange(e.target.value);
   };
 
-  handleSignUpInputChange = e => {
-    this.setState({
-      [e.currentTarget.name]: e.target.value
-    });
+  handleSignUp = e => {
+    e.preventDefault();
+    this.props.signUp();
   };
 
-  handleSignUp = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(function() {
-        alert(`Zarejestrowano pomyślnie`);
-      })
-      .then(this.handleOnAuthStateChanged)
-      .catch(function(error) {
-        return alert(`Adres email w użyciu. Wpisz inny adres.`);
-      });
-  };
-
-  handleOnAuthStateChanged = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        window.location = "/";
-      }
-    });
-  };
+  componentWillUnmount() {
+    this.props.clearInputs();
+  }
 
   render() {
-    return (
+    const { emailInput, passwordInput, user } = this.props;
+    return user ? (
+      <Redirect to="/" />
+    ) : (
       <div className="login-form">
         <Grid
           textAlign="center"
@@ -65,7 +58,8 @@ class SignUp extends Component {
                   icon="user"
                   iconPosition="left"
                   placeholder="E-mail address"
-                  onChange={this.handleSignUpInputChange}
+                  value={emailInput}
+                  onChange={this.handleInputChange}
                 />
                 <Form.Input
                   fluid
@@ -74,7 +68,8 @@ class SignUp extends Component {
                   iconPosition="left"
                   placeholder="Password"
                   type="password"
-                  onChange={this.handleSignUpInputChange}
+                  value={passwordInput}
+                  onChange={this.handleInputChange}
                 />
 
                 <Button type="submit" color="teal" fluid size="large">
@@ -83,7 +78,7 @@ class SignUp extends Component {
               </Segment>
             </Form>
             <Message>
-              Masz już konto? <a href="signin">Zaloguj się!</a>
+              Masz już konto? <NavLink to="/signin">Zaloguj się!</NavLink>
             </Message>
           </Grid.Column>
         </Grid>
@@ -91,4 +86,20 @@ class SignUp extends Component {
     );
   }
 }
-export default SignUp;
+const mapStateToProps = state => ({
+  emailInput: state.auth.emailInput,
+  passwordInput: state.auth.passwordInput,
+  user: state.auth.user
+});
+
+const mapDispatchToProps = {
+  signUp,
+  emailInputChange,
+  passwordInputChange,
+  clearInputs
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);

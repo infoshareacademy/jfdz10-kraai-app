@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
 import Nav from "../Navigation/Nav.js";
-import { Route } from "react-router-dom";
+import { Route , withRouter} from "react-router-dom";
+import {connect} from 'react-redux'
 import PetProfile from "../PetProfile/PetProfile.js";
 import ShelterProfile from "../ShelterProfile/ShelterProfile.js";
 import UserPanel from "../UserComponents/UserPanel";
@@ -10,12 +11,18 @@ import AnimalsList from "../AnimalsComponents/AnimalsList";
 import Dashboard from "../Dashboard/Dashboard";
 import SignIn from "../SignComponents/SignIn";
 import SignUp from "../SignComponents/SignUp";
-
-
+import {startListeningToAuthChange} from '../../actions/auth'
+import {compose} from 'redux'
+import { authRef } from "../../config/firebase";
 
 
 class App extends Component {
+  componentDidMount(){
+    this.props.startListeningToAuthChange()
+  }
+  
   render() {
+    console.log(authRef.currentUser)
     return (
       <div className="wrapper">
         <Nav />
@@ -35,4 +42,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps ={
+  startListeningToAuthChange
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(App));

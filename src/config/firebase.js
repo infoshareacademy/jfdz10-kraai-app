@@ -14,3 +14,5 @@ export const ref = firebase.database()
 export const refShelters = ref.ref('shelters/')
 export const refAnimals = ref.ref('animals/')
 
+export const authRef = firebase.auth()
+
