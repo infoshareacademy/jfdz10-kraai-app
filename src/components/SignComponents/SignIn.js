@@ -9,7 +9,8 @@ import {
   Header,
   Image,
   Message,
-  Segment
+  Segment,
+  Icon
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
 import "./Sign.css";
@@ -18,7 +19,8 @@ import {
   signIn,
   emailInputChange,
   passwordInputChange,
-  clearInputs
+  clearInputs,
+  signInGoogle
 } from "../../actions/auth";
 
 class SignIn extends Component {
@@ -38,56 +40,59 @@ class SignIn extends Component {
   }
 
   render() {
-    const { emailInput, passwordInput, user } = this.props;
+    const { emailInput, passwordInput, user, signInGoogle } = this.props;
     return (
       <Fragment>
-        {user ? <Redirect to="/profil/mydata" />
-        : <div className="login-form">
-        <Grid
-          textAlign="center"
-          style={{ height: "100%" }}
-          verticalAlign="middle"
-        >
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as="h2" color="teal" textAlign="center">
-              <Image src={logo} /> Zaloguj się
-            </Header>
-            <Form size="large" onSubmit={e => this.handleSignIn(e)}>
-              <Segment stacked>
-                <Form.Input
-                  name="email"
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="E-mail address"
-                  value={emailInput}
-                  onChange={this.handleInputChange}
-                />
-                <Form.Input
-                  fluid
-                  name="password"
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  value={passwordInput}
-                  onChange={this.handleInputChange}
-                />
+        {user ? (
+          <Redirect to="/profil/mydata" />
+        ) : (
+          <div className="login-form">
+            <Grid
+              textAlign="center"
+              style={{ height: "100%" }}
+              verticalAlign="middle"
+            >
+              <Grid.Column style={{ maxWidth: 450 }}>
+                <Header as="h2" color="teal" textAlign="center">
+                  <Image src={logo} /> Zaloguj się
+                </Header>
+                <Form size="large" onSubmit={e => this.handleSignIn(e)}>
+                  <Segment stacked>
+                    <Form.Input
+                      name="email"
+                      fluid
+                      icon="user"
+                      iconPosition="left"
+                      placeholder="E-mail address"
+                      value={emailInput}
+                      onChange={this.handleInputChange}
+                    />
+                    <Form.Input
+                      fluid
+                      name="password"
+                      icon="lock"
+                      iconPosition="left"
+                      placeholder="Password"
+                      type="password"
+                      value={passwordInput}
+                      onChange={this.handleInputChange}
+                    />
 
-                <Button color="teal" fluid size="large" type="submit">
-                  Zaloguj
+                    <Button color="teal" fluid size="large" type="submit">
+                      Zaloguj
+                    </Button>
+                  </Segment>
+                </Form>
+                <Button color="google plus" onClick={() => signInGoogle()}>
+                  <Icon name="google" /> Zaloguj z Google
                 </Button>
-              </Segment>
-            </Form>
-            <Message>
-              Nie masz konta? <Link to="/signup">Dolącz do nas!</Link>
-            </Message>
-          </Grid.Column>
-        </Grid>
-      </div>
-      }
-        
-       
+                <Message>
+                  Nie masz konta? <Link to="/signup">Dolącz do nas!</Link>
+                </Message>
+              </Grid.Column>
+            </Grid>
+          </div>
+        )}
       </Fragment>
     );
   }
@@ -102,10 +107,11 @@ const mapDispatchToProps = {
   signIn,
   emailInputChange,
   passwordInputChange,
-  clearInputs
+  clearInputs,
+  signInGoogle
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SignIn);
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);

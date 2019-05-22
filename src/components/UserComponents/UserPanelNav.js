@@ -14,7 +14,7 @@ class UserPanelNav extends Component{
     render(){
         const { activeItem } = this.state;
         return(
-            <Menu pointing secondary>
+            <Menu pointing primary className='user_nav'>
             <Menu.Item
               name="Moje Dane"
               active={activeItem === "Moje Dane"}

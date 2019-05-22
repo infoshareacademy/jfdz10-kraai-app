@@ -13,6 +13,10 @@ firebase.initializeApp(config);
 export const ref = firebase.database()
 export const refShelters = ref.ref('shelters/')
 export const refAnimals = ref.ref('animals/')
+export const usersRef = ref.ref('usersInfo/')
+export const providerGoogle = new firebase.auth.GoogleAuthProvider();
+providerGoogle.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
 
 export const authRef = firebase.auth()
 

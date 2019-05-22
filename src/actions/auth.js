@@ -1,4 +1,4 @@
-import { authRef } from "../config/firebase";
+import { authRef, usersRef , providerGoogle} from "../config/firebase";
 
 export const SIGN_IN_UP = "SIGN_IN_UP";
 export const EMAIL_INPUT_CHANGE = "EMAIL_INPUT_CHANGE";
@@ -9,10 +9,10 @@ export const LOG_OUT = "LOG_OUT";
 export const startListeningToAuthChange = () => dispatch => {
   authRef.onAuthStateChanged(user => {
     if (user) {
-      dispatch({
+      usersRef.child(user.uid).on('value', snapshot => dispatch({
         type: SIGN_IN_UP,
-        user
-      });
+        user: {...user,  ...snapshot.val()}
+      }) );
     } else {
       dispatch({
         type: LOG_OUT
@@ -28,38 +28,37 @@ export const signIn = () => (dispatch, getState) => {
       getState().auth.passwordInput
     )
     .then(value =>
-      dispatch({
+      usersRef.child(value.user.uid).on('value', snapshot => dispatch({
         type: SIGN_IN_UP,
-        user: value.user
-      })
+        user: {...value.user,  ...snapshot.val()}
+      }) )
     )
     .catch(function(error) {
       return alert(`Nie znaleziono użytkownika.`);
     });
 };
+export const signInGoogle = () => (dispatch, getState) => {
+  authRef.signInWithPopup(providerGoogle).then(function(result) {
+   
+    var user = result.user;
+    usersRef.child(user.uid).on('value', snapshot => dispatch({
+      type: SIGN_IN_UP,
+      user: {...user,  ...snapshot.val()}
+    }) )
+  }).catch(function(error) {
+    alert('błąd logowania')
+  });
+};
 
 export const signUp = () => (dispatch, getState) => {
   authRef
-    .createUserWithEmailAndPassword(getState().auth.emailInput, getState().auth.passwordInput)
-    .then(function() {
-      alert(`Zarejestrowano pomyślnie`);
-    }).then(() => authRef
-    .signInWithEmailAndPassword(
+    .createUserWithEmailAndPassword(
       getState().auth.emailInput,
       getState().auth.passwordInput
     )
-    .then(value =>
-     dispatch({
-        type: SIGN_IN_UP,
-        user: value.user
-      })
-    )
-    .catch(function(error) {
-      return alert(`Nie znaleziono użytkownika.`);
-    }) )
-    .catch(function(error) {
-      return alert(`Adres email w użyciu. Wpisz inny adres.`);
-    });
+    .then(snapshot =>
+      usersRef.child(`${snapshot.user.uid}`).set({ id: snapshot.user.uid })
+    ).catch(() => alert('Email już zarejestrowany'))
 };
 
 export const emailInputChange = value => ({
