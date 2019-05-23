@@ -135,7 +135,7 @@ class UserPanel extends Component {
               </div>
             </Grid.Column>
 
-            <Grid.Column tablet={14} mobile={16} computer={14}>
+            <Grid.Column tablet={16} mobile={16} computer={16}>
               <UserPanelNav />
               <Route
                 exact
