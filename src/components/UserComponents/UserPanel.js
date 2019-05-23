@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import firebase from "firebase";
 
 import UserPanelNav from "./UserPanelNav";
 import MyData from "./MyData";
 import MyAnimals from "./MyAnimals";
 import Favorites from "./Favorites";
-
-import { Grid, Image } from "semantic-ui-react";
 import "./UserPanel.css";
+
+import { Grid, Image, Button, Input } from "semantic-ui-react";
+
+import avatarPlaceholder from "../../img/avatar-placeholder.png";
 
 const fetchUser = () => fetch("/user.json").then(response => response.json());
 const fetchAnimals = () =>
@@ -18,12 +21,85 @@ const fetchAnimals = () =>
 class UserPanel extends Component {
   state = {
     user: {},
-    animals: []
+    animals: [],
+    loggedUser: null,
+    file: null,
+    avatarUrl: ""
+  };
+
+  handleInputFileChange = event => {
+    this.setState({
+      file: event.target.files[0]
+    });
+  };
+
+  handleAddAvatar = () => {
+    if (this.state.loggedUser) {
+      firebase
+        .storage()
+        .ref("/avatars/" + this.state.loggedUser.uid)
+        .put(this.state.file)
+        .then(() => {
+          this.getAvatarUrl();
+          this.setState({
+            file: null
+          });
+        })
+        .catch(error => console.error(error));
+    }
+  };
+
+  handleRemoveAvatar = () => {
+    if (this.state.loggedUser) {
+      firebase
+        .storage()
+        .ref("/avatars/" + this.state.loggedUser.uid)
+        .delete()
+        .then(() => {
+          this.getAvatarUrl();
+          this.setState({
+            avatarUrl: ""
+          });
+        })
+        .catch(error => console.error(error));
+    }
+  };
+
+  getAvatarUrl = () => {
+    if (this.state.loggedUser) {
+      const uid = this.state.loggedUser.uid;
+      firebase
+        .storage()
+        .ref("/avatars/" + uid)
+        .getDownloadURL()
+        .then(url => {
+          this.setState({
+            avatarUrl: url
+          });
+        })
+        .catch(error => console.error(error));
+    }
   };
 
   componentDidMount() {
     fetchUser().then(user => this.setState({ user }));
     fetchAnimals().then(animal => this.setState({ animals: animal }));
+    const ref = firebase.auth().onAuthStateChanged(loggedUser => {
+      this.setState(
+        {
+          loggedUser: loggedUser
+        },
+        () => this.getAvatarUrl()
+      );
+    });
+
+    this.setState({
+      ref
+    });
+  }
+
+  componentWillUnmount() {
+    this.state.ref && this.state.ref();
   }
 
   render() {
@@ -32,13 +108,30 @@ class UserPanel extends Component {
       <div className="userPanel">
         <Grid padded="horizontally">
           <Grid.Row>
-            <Grid.Column computer={2} tablet={2} mobile={16}>
+            <Grid.Column computer={16} tablet={2} mobile={16}>
               <Image
-                src={this.state.user.avatar}
+                src={
+                  this.state.avatarUrl
+                    ? this.state.avatarUrl
+                    : { avatarPlaceholder }
+                }
                 size="medium"
                 circular
                 centered
               />
+              <div id="upload-container">
+                <Input
+                  size="tiny"
+                  type="file"
+                  onChange={this.handleInputFileChange}
+                />
+                <Button size="tiny" onClick={this.handleAddAvatar}>
+                  Dodaj zdjęcie
+                </Button>
+                <Button size="tiny" onClick={this.handleRemoveAvatar}>
+                  Usuń zdjęcie
+                </Button>
+              </div>
             </Grid.Column>
 
             <Grid.Column tablet={14} mobile={16} computer={14}>
