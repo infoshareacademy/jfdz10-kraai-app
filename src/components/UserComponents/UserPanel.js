@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "firebase";
+import {usersRef} from '../../config/firebase'
 
 import UserPanelNav from "./UserPanelNav";
 import MyData from "./MyData";
@@ -9,9 +10,9 @@ import MyAnimals from "./MyAnimals";
 import Favorites from "./Favorites";
 import "./UserPanel.css";
 
-import { Grid, Image, Button, Input } from "semantic-ui-react";
+import { Grid, Image, Button, Input , Icon} from "semantic-ui-react";
 
-import avatarPlaceholder from "../../img/avatar-placeholder.png";
+const avatarPlaceholder = "/avatar-placeholder.png";
 
 const fetchUser = () => fetch("/user.json").then(response => response.json());
 const fetchAnimals = () =>
@@ -22,9 +23,7 @@ class UserPanel extends Component {
   state = {
     user: {},
     animals: [],
-    loggedUser: null,
-    file: null,
-    avatarUrl: avatarPlaceholder
+    file: '',
   };
 
   handleInputFileChange = event => {
@@ -34,75 +33,49 @@ class UserPanel extends Component {
   };
 
   handleAddAvatar = () => {
-    if (this.state.loggedUser) {
+    const user =this.props.user
+    if (user) {
       firebase
         .storage()
-        .ref("/avatars/" + this.state.loggedUser.uid)
+        .ref("/avatars/" + user.uid)
         .put(this.state.file)
-        .then(() => {
-          this.getAvatarUrl();
-          this.setState({
-            file: null
-          });
-        })
+        .then(() => firebase.storage().ref("/avatars/" + user.uid).getDownloadURL().then(url => usersRef.child(user.uid).update({avatarUrl: url})))
         .catch(error => console.error(error));
+       
+        this.setState({file: ''})
     }
   };
 
   handleRemoveAvatar = () => {
-    if (this.state.loggedUser) {
+    const user = this.props.user
+    if (user) {
       firebase
         .storage()
-        .ref("/avatars/" + this.state.loggedUser.uid)
+        .ref("/avatars/" + user.uid)
         .delete()
         .then(() => {
-          this.getAvatarUrl();
-          this.setState({
-            avatarUrl: ""
-          });
-        })
+          usersRef.child(user.uid).update({avatarUrl: null})
+          })
         .catch(error => console.error(error));
     }
   };
 
-  getAvatarUrl = () => {
-    if (this.state.loggedUser) {
-      const uid = this.state.loggedUser.uid;
-      firebase
-        .storage()
-        .ref("/avatars/" + uid)
-        .getDownloadURL()
-        .then(url => {
-          this.setState({
-            avatarUrl: url
-          });
-        })
-        .catch(error => console.error(error));
-    }
-  };
 
   componentDidMount() {
     fetchUser().then(user => this.setState({ user }));
     fetchAnimals().then(animal => this.setState({ animals: animal }));
-    const ref = firebase.auth().onAuthStateChanged(loggedUser => {
-      this.setState(
-        {
-          loggedUser: loggedUser
-        },
-        () => this.getAvatarUrl()
-      );
-    });
+  }
 
+  clearInputFile = () => {
     this.setState({
-      ref
+      file: null
     });
-  }
+  };
 
-  componentWillUnmount() {
-    this.state.ref && this.state.ref();
-  }
+
 
   render() {
+    const {file} = this.state
     const { user } = this.props;
     return user ? (
       <div className="userPanel">
@@ -111,27 +84,60 @@ class UserPanel extends Component {
             <Grid.Column computer={16} tablet={16} mobile={16}>
               <Image
                 src={
-                  this.state.avatarUrl
-                    ? this.state.avatarUrl
-                    : { avatarPlaceholder }
+                  user.avatarUrl
+                    ? `${user.avatarUrl}`
+                    :  avatarPlaceholder 
                 }
                 size="medium"
                 circular
                 centered
               />
               <div id="upload-container">
-                <Input
-                  centered
-                  size="tiny"
-                  type="file"
-                  onChange={this.handleInputFileChange}
-                />
-                <Button size="tiny" onClick={this.handleAddAvatar}>
-                  Dodaj zdjęcie
-                </Button>
-                <Button size="tiny" onClick={this.handleRemoveAvatar}>
-                  Usuń zdjęcie
-                </Button>
+              <Input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="raised-button-file"
+            type="file"
+            files={file}
+            onChange={this.handleInputFileChange}
+          />
+          
+            {file? <Button
+              as="a"
+              basic
+              color="blue"
+              content="SAVE"
+              icon="save"
+              onClick={this.handleAddAvatar}
+            /> : <label htmlFor="raised-button-file"><Button
+            as="a"
+            basic
+            color="blue"
+            content="Upload image"
+            icon="upload"
+          /></label>}
+          
+          {file ? (
+            <div>
+              {file.name}{" "}
+              <Icon
+                style={{ cursor: "pointer" }}
+                circular
+                color="red"
+                name="delete"
+                onClick={this.clearInputFile}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+          {user.avatarUrl ? <Button
+              as="a"
+              basic
+              color="blue"
+              content="Usuń zdjęcie"
+              icon="delete"
+              onClick={this.handleRemoveAvatar}/>: ''}
               </div>
             </Grid.Column>
 
