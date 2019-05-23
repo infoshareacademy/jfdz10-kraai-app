@@ -108,7 +108,7 @@ class UserPanel extends Component {
       <div className="userPanel">
         <Grid padded="horizontally">
           <Grid.Row>
-            <Grid.Column computer={16} tablet={2} mobile={16}>
+            <Grid.Column computer={16} tablet={16} mobile={16}>
               <Image
                 src={
                   this.state.avatarUrl
@@ -119,19 +119,18 @@ class UserPanel extends Component {
                 circular
                 centered
               />
-              <div id="upload-container">
-                <Input
-                  size="tiny"
-                  type="file"
-                  onChange={this.handleInputFileChange}
-                />
-                <Button size="tiny" onClick={this.handleAddAvatar}>
-                  Dodaj zdjęcie
-                </Button>
-                <Button size="tiny" onClick={this.handleRemoveAvatar}>
-                  Usuń zdjęcie
-                </Button>
-              </div>
+              <Input
+                centered
+                size="tiny"
+                type="file"
+                onChange={this.handleInputFileChange}
+              />
+              <Button size="tiny" onClick={this.handleAddAvatar}>
+                Dodaj zdjęcie
+              </Button>
+              <Button size="tiny" onClick={this.handleRemoveAvatar}>
+                Usuń zdjęcie
+              </Button>
             </Grid.Column>
 
             <Grid.Column tablet={14} mobile={16} computer={14}>
