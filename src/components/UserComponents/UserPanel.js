@@ -24,7 +24,7 @@ class UserPanel extends Component {
     animals: [],
     loggedUser: null,
     file: null,
-    avatarUrl: ""
+    avatarUrl: avatarPlaceholder
   };
 
   handleInputFileChange = event => {
@@ -119,18 +119,20 @@ class UserPanel extends Component {
                 circular
                 centered
               />
-              <Input
-                centered
-                size="tiny"
-                type="file"
-                onChange={this.handleInputFileChange}
-              />
-              <Button size="tiny" onClick={this.handleAddAvatar}>
-                Dodaj zdjęcie
-              </Button>
-              <Button size="tiny" onClick={this.handleRemoveAvatar}>
-                Usuń zdjęcie
-              </Button>
+              <div id="upload-container">
+                <Input
+                  centered
+                  size="tiny"
+                  type="file"
+                  onChange={this.handleInputFileChange}
+                />
+                <Button size="tiny" onClick={this.handleAddAvatar}>
+                  Dodaj zdjęcie
+                </Button>
+                <Button size="tiny" onClick={this.handleRemoveAvatar}>
+                  Usuń zdjęcie
+                </Button>
+              </div>
             </Grid.Column>
 
             <Grid.Column tablet={14} mobile={16} computer={14}>
