@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import firebase from "firebase";
+import {usersRef} from '../../config/firebase'
 
 import UserPanelNav from "./UserPanelNav";
 import MyData from "./MyData";
 import MyAnimals from "./MyAnimals";
 import Favorites from "./Favorites";
-
-import { Grid, Image } from "semantic-ui-react";
 import "./UserPanel.css";
+
+import { Grid, Image, Button, Input , Icon} from "semantic-ui-react";
+
+const avatarPlaceholder = "/avatar-placeholder.png";
 
 const fetchUser = () => fetch("/user.json").then(response => response.json());
 const fetchAnimals = () =>
@@ -18,30 +22,126 @@ const fetchAnimals = () =>
 class UserPanel extends Component {
   state = {
     user: {},
-    animals: []
+    animals: [],
+    file: '',
   };
+
+  handleInputFileChange = event => {
+    this.setState({
+      file: event.target.files[0]
+    });
+  };
+
+  handleAddAvatar = () => {
+    const user =this.props.user
+    if (user) {
+      firebase
+        .storage()
+        .ref("/avatars/" + user.uid)
+        .put(this.state.file)
+        .then(() => firebase.storage().ref("/avatars/" + user.uid).getDownloadURL().then(url => usersRef.child(user.uid).update({avatarUrl: url})))
+        .catch(error => console.error(error));
+       
+        this.setState({file: ''})
+    }
+  };
+
+  handleRemoveAvatar = () => {
+    const user = this.props.user
+    if (user) {
+      firebase
+        .storage()
+        .ref("/avatars/" + user.uid)
+        .delete()
+        .then(() => {
+          usersRef.child(user.uid).update({avatarUrl: null})
+          })
+        .catch(error => console.error(error));
+    }
+  };
+
 
   componentDidMount() {
     fetchUser().then(user => this.setState({ user }));
     fetchAnimals().then(animal => this.setState({ animals: animal }));
   }
 
+  clearInputFile = () => {
+    this.setState({
+      file: null
+    });
+  };
+
+
+
   render() {
+    const {file} = this.state
     const { user } = this.props;
     return user ? (
       <div className="userPanel">
         <Grid padded="horizontally">
           <Grid.Row>
-            <Grid.Column computer={2} tablet={2} mobile={16}>
+            <Grid.Column computer={16} tablet={16} mobile={16}>
               <Image
-                src={this.state.user.avatar}
+                src={
+                  user.avatarUrl
+                    ? `${user.avatarUrl}`
+                    :  avatarPlaceholder 
+                }
                 size="medium"
                 circular
                 centered
               />
+              <div id="upload-container">
+              <Input
+            accept="image/*"
+            style={{ display: "none" }}
+            id="raised-button-file"
+            type="file"
+            files={file}
+            onChange={this.handleInputFileChange}
+          />
+          
+            {file? <Button
+              as="a"
+              basic
+              color="blue"
+              content="SAVE"
+              icon="save"
+              onClick={this.handleAddAvatar}
+            /> : <label htmlFor="raised-button-file"><Button
+            as="a"
+            basic
+            color="blue"
+            content="Upload image"
+            icon="upload"
+          /></label>}
+          
+          {file ? (
+            <div>
+              {file.name}{" "}
+              <Icon
+                style={{ cursor: "pointer" }}
+                circular
+                color="red"
+                name="delete"
+                onClick={this.clearInputFile}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+          {user.avatarUrl ? <Button
+              as="a"
+              basic
+              color="blue"
+              content="Usuń zdjęcie"
+              icon="delete"
+              onClick={this.handleRemoveAvatar}/>: ''}
+              </div>
             </Grid.Column>
 
-            <Grid.Column tablet={14} mobile={16} computer={14}>
+            <Grid.Column tablet={16} mobile={16} computer={16}>
               <UserPanelNav />
               <Route
                 exact

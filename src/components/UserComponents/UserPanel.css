@@ -1,3 +1,10 @@
 .user_nav {
     color: black
 }
+
+#upload-container {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center
+}
