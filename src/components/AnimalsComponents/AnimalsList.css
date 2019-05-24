@@ -4,3 +4,7 @@
   align-items: flex-start;
   justify-content: center;
 }
+img.ui.image{
+  width: 100%;
+  object-fit: cover
+}

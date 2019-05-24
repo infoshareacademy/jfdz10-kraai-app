@@ -41,7 +41,6 @@ class UserPanel extends Component {
         .put(this.state.file)
         .then(() => firebase.storage().ref("/avatars/" + user.uid).getDownloadURL().then(url => usersRef.child(user.uid).update({avatarUrl: url})))
         .catch(error => console.error(error));
-       
         this.setState({file: ''})
     }
   };
@@ -59,7 +58,6 @@ class UserPanel extends Component {
         .catch(error => console.error(error));
     }
   };
-
 
   componentDidMount() {
     fetchUser().then(user => this.setState({ user }));

@@ -14,6 +14,7 @@ import {
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
 import "./Sign.css";
+import {authRef} from '../../config/firebase'
 
 import {
   signIn,
@@ -22,6 +23,7 @@ import {
   clearInputs,
   signInGoogle
 } from "../../actions/auth";
+import {activeItemChange} from '../../actions/nav'
 
 class SignIn extends Component {
   handleInputChange = e => {
@@ -40,7 +42,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const { emailInput, passwordInput, user, signInGoogle } = this.props;
+    const { emailInput, passwordInput, user, signInGoogle , activeItemChange} = this.props;
     return (
       <Fragment>
         {user ? (
@@ -83,11 +85,14 @@ class SignIn extends Component {
                     </Button>
                   </Segment>
                 </Form>
-                <Button color="google plus" onClick={() => signInGoogle()}>
+                <Button color="google plus" fluid size="large" onClick={() => signInGoogle()}>
                   <Icon name="google" /> Zaloguj z Google
                 </Button>
                 <Message>
-                  Nie masz konta? <Link to="/signup">Dolącz do nas!</Link>
+                  Nie masz konta? <Link to="/signup" name="signup" onClick={(event) => activeItemChange(event.currentTarget.name )}>Dołącz do nas!</Link>
+                </Message>
+                <Message>
+                  Nie pamiętasz hasła? <Button onClick={() => authRef.sendPasswordResetEmail(emailInput).then(() => alert('Sprawdź swoją skrzynkę mailową')).catch(() => alert('Wpisz adres email'))}>Zresetuj hasło!</Button>
                 </Message>
               </Grid.Column>
             </Grid>
@@ -108,7 +113,8 @@ const mapDispatchToProps = {
   emailInputChange,
   passwordInputChange,
   clearInputs,
-  signInGoogle
+  signInGoogle,
+  activeItemChange
 };
 
 export default connect(

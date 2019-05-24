@@ -8,16 +8,20 @@ import {
   Header,
   Image,
   Message,
-  Segment
+  Segment,
+  Icon
 } from "semantic-ui-react";
 import logo from "../../img/logo.png";
 import "./Sign.css";
 import {
   signUp,
+  signInGoogle,
   emailInputChange,
   passwordInputChange,
   clearInputs
 } from "../../actions/auth";
+import {activeItemChange} from '../../actions/nav'
+
 
 class SignUp extends Component {
   handleInputChange = e => {
@@ -36,7 +40,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const { emailInput, passwordInput, user } = this.props;
+    const { emailInput, passwordInput, user , signInGoogle, activeItemChange} = this.props;
     return user ? (
       <Redirect to="/" />
     ) : (
@@ -77,8 +81,11 @@ class SignUp extends Component {
                 </Button>
               </Segment>
             </Form>
+            <Button color="google plus" fluid size="large" onClick={() => signInGoogle()}>
+                  <Icon name="google" /> Zaloguj z Google
+                </Button>
             <Message>
-              Masz już konto? <NavLink to="/signin">Zaloguj się!</NavLink>
+              Masz już konto? <NavLink to="/signin" name="signin" onClick={(event) => activeItemChange(event.currentTarget.name )}>Zaloguj się!</NavLink>
             </Message>
           </Grid.Column>
         </Grid>
@@ -96,7 +103,9 @@ const mapDispatchToProps = {
   signUp,
   emailInputChange,
   passwordInputChange,
-  clearInputs
+  clearInputs,
+  signInGoogle,
+  activeItemChange
 };
 
 export default connect(
