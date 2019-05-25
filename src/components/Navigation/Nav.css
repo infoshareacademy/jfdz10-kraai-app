@@ -1,20 +1,26 @@
-.ui.menu.stackable > .item {
-  text-transform: uppercase;
-  color: white;
+.ui.menu.stackable > .item,
+.ui.menu:not(.vertical) .item {
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 0.2rem;
 }
 .ui.menu {
-  background-color: #097988;
-  font-size: 1.2rem;
-  color: white;
+    background-color: #097988;
+    font-size: 1.2rem;
+    color: white;
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: 1px 1px 15px #000;
+    z-index: 2;
 }
 .ui.menu .item {
-  color: white;
+    color: white;
 }
 
 .ui.menu .item > i.icon {
-  margin: 0;
-  color: white;
+    margin: 0;
+    color: white;
 }
 .ui .stackable .menu:last-of-type(a) {
-  justify-self: flex-end;
+    justify-self: flex-end;
 }

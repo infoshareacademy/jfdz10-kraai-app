@@ -26,7 +26,7 @@ class App extends Component {
         return (
             <div className="wrapper">
                 <Nav />
-                <div style={{ padding: 1 + "rem" }}>
+                <div>
                     <Route exact path="/" component={Dashboard} />
                     <Route exact path="/shelters" component={SheltersList} />
                     <Route exact path="/animals" component={AnimalsList} />
