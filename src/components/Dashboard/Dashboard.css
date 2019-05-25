@@ -9,20 +9,52 @@
     );
     margin: 0;
     z-index: 4;
+    overflow: hidden;
 }
 .particles__Wrapper {
     z-index: 2;
 }
 .tittle {
     position: absolute;
-    top: 0;
-    width: 20%;
+    top: 20%;
+    left: 10%;
+    width: 30%;
     height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
 }
 .tittle > h1 {
     color: #cf9c63;
-    font-size: 3rem;
+    font-size: 5rem;
     text-align: center;
     letter-spacing: 0.2rem;
     text-transform: uppercase;
+}
+.stats {
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    width: 30%;
+    height: 45%;
+    padding: 1rem;
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+.stats_2 {
+    position: absolute;
+    top: 10%;
+    left: 65%;
+    width: 30%;
+    height: 45%;
+    padding: 1rem;
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0);
 }
