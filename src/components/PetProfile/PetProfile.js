@@ -46,6 +46,7 @@ class PetProfile extends Component {
     this.setState({
       petId: parseFloat(this.props.match.params.id)
     });
+    
     const animalsRef = firebase.database().ref('animals')
     animalsRef.once('value')
       .then(snapshot => this.setState({ animals: snapshot.val() }))
@@ -103,7 +104,7 @@ class PetProfile extends Component {
     const pet = this.state.pet;
     return (
       <Fragment>
-      <Link to="/animals"><Icon name="arrow left" size="big" float='left'/></Link>
+      <button onClick={() => this.props.history.goBack()}><Icon name="arrow left" size="big" float='left'/></button>
         <div className="PetProfile">
           <HeaderCard name={pet.name} /> 
         </div>

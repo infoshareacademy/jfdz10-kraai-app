@@ -36,12 +36,16 @@ class AnimalsList extends Component {
       const sizeFilter = this.state.filter.size;
       const animalSex = animal.metrics.sexId;
       const sexFilter = this.state.filter.sex;
+      const animalId = animal.id
+      const favAnimals =this.props.favAnimals
+      
 
       return (
         animalNameLowercase.includes(nameFilteredLowercase) &&
         (!kindFilter || animalKind.includes(kindFilter)) &&
         (!sizeFilter || animalSize === sizeFilter) &&
-        (!sexFilter || animalSex === sexFilter)
+        (!sexFilter || animalSex === sexFilter) &&
+        (this.props.userPanel ?  favAnimals.map(({animalID}) => animalID).includes(animalId) : true)
       );
     });
   }
@@ -59,7 +63,7 @@ class AnimalsList extends Component {
         <Card.Group doubling itemsPerRow={3} stackable>
           {this.getFilteredAnimals().map(animal => (
             <Card key={animal.id}>
-              <NavLink to={`animals/${animal.id}`}>
+              <NavLink to={`/animals/${animal.id}`}>
                 <Image src={animal.avatar} height="300px" />
               </NavLink>
 

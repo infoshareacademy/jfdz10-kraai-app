@@ -1,51 +1,26 @@
-import React, { Component } from "react";
-
-import { List, Image, Icon } from "semantic-ui-react";
+import React, { Component, Fragment } from "react";
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import AnimalList from '../AnimalsComponents/AnimalsList'
+import {Button} from 'semantic-ui-react'
 
 class Favorites extends Component {
-  state = {
-    userFavoriteAnimals : JSON.parse(localStorage.getItem('userFav')) || []
-  }
-  componentWillUnmount() {
-    localStorage.setItem("userFav", JSON.stringify(this.state.userFavoriteAnimals));
-  }
+  
 
   render() {
-    const {userFavoriteAnimals} = this.state
-    return (
+    const {favAnimals} = this.props
+    return favAnimals.length ===0 ? (<div style={{margin: 'auto', width: '100%', textAlign: 'center'}}><span>Nie masz ulubionych zwierząt</span><br/><Link to='/animals'><Button primary icon='search' content='SZUKAJ'/> </Link></div>): (
       <React.Fragment>
         <h1>Ulubione</h1>
         <div>
-          <List celled>
-            {this.props.animals
-              .filter(({ id }) =>
-                userFavoriteAnimals.some(uId => uId === id)
-              )
-              .map(animal => (
-                <List.Item key={animal.id}>
-                  <Image avatar src={animal.avatar} />
-                  <List.Content>
-                    <List.Header>{animal.name} <Icon
-                        name="delete"
-                        color="black"
-                        size='normal'
-                        onClick={e =>
-                          this.setState(
-                            ({userFavoriteAnimals: userFavoriteAnimals.filter(
-                              id => id !== animal.id
-                            )})
-                          )
-                        }
-                      /></List.Header>
-                   
-                  </List.Content>
-                </List.Item>
-              ))}
-          </List>
+        <AnimalList userPanel={true}/>
         </div>
       </React.Fragment>
     );
   }
 }
+const mapStateToProps = state => ({
+  favAnimals: state.auth.favAnimals
+})
 
-export default Favorites;
+export default connect(mapStateToProps)(Favorites);

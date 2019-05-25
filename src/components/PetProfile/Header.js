@@ -6,7 +6,7 @@ const HeaderCard = props => (
   <Header as="h2" icon>
     <Icon name="paw" />
     {props.name}
-    <Header.Subheader>Poznaj bliżej swojego move!</Header.Subheader>
+    <Header.Subheader>Poznaj bliżej swojego zwierzaka!</Header.Subheader>
   </Header>
 );
 

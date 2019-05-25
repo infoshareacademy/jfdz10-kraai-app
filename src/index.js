@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import {Provider as ReduxProvider} from 'react-redux'
 import configureStore from './store.js'
 
+
 const AppWithRouterAndRedux = () => {
   return (
     <Router>

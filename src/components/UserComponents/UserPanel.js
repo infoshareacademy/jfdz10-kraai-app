@@ -10,6 +10,7 @@ import MyAnimals from "./MyAnimals";
 import Favorites from "./Favorites";
 import "./UserPanel.css";
 
+
 import { Grid, Image, Button, Input , Icon} from "semantic-ui-react";
 
 const avatarPlaceholder = "/avatar-placeholder.png";

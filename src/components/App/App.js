@@ -14,11 +14,13 @@ import SignUp from "../SignComponents/SignUp";
 import {startListeningToAuthChange} from '../../actions/auth'
 import {compose} from 'redux'
 import { authRef } from "../../config/firebase";
+import {fetchShelters} from '../../actions/shelters'
 
 
 class App extends Component {
   componentDidMount(){
     this.props.startListeningToAuthChange()
+    this.props.fetchShelters()
   }
   
   render() {
@@ -43,7 +45,8 @@ class App extends Component {
 }
 
 const mapDispatchToProps ={
-  startListeningToAuthChange
+  startListeningToAuthChange,
+  fetchShelters
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(App));

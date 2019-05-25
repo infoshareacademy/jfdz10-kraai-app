@@ -1,26 +1,18 @@
 import React, {Component, Fragment} from "react";
 import { Card , Icon, Image} from "semantic-ui-react";
+import {connect} from 'react-redux'
+import {addToFavorite,
+  removeFromFavorite} from '../../actions/auth'
 
 
 class PetCard extends Component {
-state ={
-  userFavoriteAnimals: []
-}
-componentDidMount() {
-  this.setState({userFavoriteAnimals: JSON.parse(localStorage.getItem('userFav')) || []})
-}
 
 
-componentWillUnmount() {
-  localStorage.setItem(
-    "userFav",
-    JSON.stringify(this.state.userFavoriteAnimals)
-  );
-}
+
 
 render(){
 const props = this.props
-const {userFavoriteAnimals} = this.state
+
 return (
   <Fragment>
   <Card>
@@ -34,8 +26,8 @@ return (
     </Card.Content>
     <Card.Content extra>
       
-    {!userFavoriteAnimals.some(
-                    favAnimal => favAnimal === props.petId
+    {props.user ?  !props.favAnimals.some(
+                    favAnimal => favAnimal.animalID === props.petId
                   ) ? (
                     <Icon
                       style={{cursor:'pointer', float: 'right'}}
@@ -43,12 +35,7 @@ return (
                       color="black"
                       size="big"
                       onClick={e =>
-                        this.setState({
-                          userFavoriteAnimals: [
-                            ...userFavoriteAnimals,
-                            props.petId
-                          ]
-                        })
+                        props.addToFavorite(props.user.uid, props.petId)
                       }
                     />
                   ) : (
@@ -58,14 +45,10 @@ return (
                       color="red"
                       size="big"
                       onClick={e =>
-                        this.setState({
-                          userFavoriteAnimals: userFavoriteAnimals.filter(
-                            id => id !== props.petId
-                          )
-                        })
+                        props.removeFromFavorite(props.user.uid, props.petId)
                       }
                     />
-                  )}
+                  ): ''}
       
     </Card.Content>
   </Card>
@@ -75,4 +58,14 @@ return (
 }
 };
 
-export default PetCard;
+const mapDispatchToProps ={
+  addToFavorite,
+  removeFromFavorite
+}
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  favAnimals: state.auth.favAnimals
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PetCard);
