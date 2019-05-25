@@ -3,7 +3,8 @@ import {SIGN_IN_UP, EMAIL_INPUT_CHANGE, PASSWORD_INPUT_CHANGE, CLEAR_INPUTS, LOG
 const initialState = {
      emailInput : '',
      passwordInput: '',
-     user: null
+     user: null,
+     favAnimals: null
  }
 
  export default function auth(state = initialState, action) {
@@ -13,7 +14,8 @@ const initialState = {
           ...state,
           emailInput: '',
           passwordInput: '',
-          user: action.user
+          user: action.user,
+          favAnimals: action.user.favAnimalId ? Object.keys(action.user.favAnimalId).map(key => ({animalID: action.user.favAnimalId[key], id: key})) : []
           }
         }
         case EMAIL_INPUT_CHANGE: {

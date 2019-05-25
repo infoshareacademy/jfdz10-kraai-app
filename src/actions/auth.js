@@ -95,13 +95,19 @@ export const logOut = () => dispatch => {
 };
 
 export const addToFavorite = (userID, animalID) => (dispatch, getState) => {
-  const userFavAnimals = getState().auth.user.favAnimalId 
-  
-  usersRef.child(userID + '/favAnimalId' ).push(animalID)
+  const userFavAnimals = getState().auth.favAnimals;
+  if(userFavAnimals.length === 0 || !userFavAnimals.map(({animalID}) => animalID).includes(animalID)) {
+   usersRef.child(userID + '/favAnimalId' ).push(animalID)
+  }
+
 }
 
 export const removeFromFavorite = (userID, animalID) => (dispatch, getState) => {
-  const userFavAnimals = getState().auth.user.favAnimalId 
-  const filteredFav = Object.keys(userFavAnimals).filter(key => userFavAnimals[key] !== animalID)
-  usersRef.child(userID  ).set({favAnimalId: filteredFav})
+  const userFavAnimals = getState().auth.favAnimals
+  console.log('TEST1', userFavAnimals, animalID)
+  if(userFavAnimals.length > 0 ){
+  const animalToDelete = userFavAnimals.find(animalInFav => animalInFav.animalID === animalID)
+  console.log('TEST2', animalToDelete)
+  usersRef.child(userID + '/favAnimalId/' + animalToDelete.id).remove()
+  }
 }

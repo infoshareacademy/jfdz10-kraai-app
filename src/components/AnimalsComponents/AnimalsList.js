@@ -10,12 +10,6 @@ import {fetchAnimals} from '../../actions/animals'
 import {addToFavorite,
   removeFromFavorite} from '../../actions/auth'
 
-
-const user = () =>
-  fetch("/user.json").then(response =>
-    response.json()
-  );
-
 class AnimalsList extends Component {
   state = {
     filter: {
@@ -24,21 +18,12 @@ class AnimalsList extends Component {
       size: null,
       sex: ""
     },
-    user: {
-      favAnimalId: []
-    },
+    
     userFavoriteAnimals: []
   };
 
   componentDidMount() {
     this.props.fetchAnimals()
-    
-    
-  
-      this.setState({
-        userFavoriteAnimals: this.props.user.favAnimalId || []
-      });
-    
   }
 
   getFilteredAnimals() {
@@ -61,16 +46,11 @@ class AnimalsList extends Component {
     });
   }
  
-  componentWillUnmount() {
-    localStorage.setItem(
-      "userFav",
-      JSON.stringify(this.state.userFavoriteAnimals)
-    );
-  }
+
 
   render() {
     const {user, addToFavorite,
-      removeFromFavorite} =this.props
+      removeFromFavorite, favAnimals} =this.props
     const { userFavoriteAnimals } = this.state;
     console.log(userFavoriteAnimals)
     return (
@@ -90,8 +70,8 @@ class AnimalsList extends Component {
                     <Card.Description>{animal.description}</Card.Description>
                   </div>
 
-                  {/* {user ? !userFavoriteAnimals.some(
-                    favAnimal => favAnimal === animal.id
+                  {user ? !favAnimals.some(
+                    favAnimal => favAnimal.animalID === animal.id
                   ) ? (
                      <Icon
                       style={{ cursor: "pointer", float: "right" }}
@@ -112,7 +92,7 @@ class AnimalsList extends Component {
                         removeFromFavorite(user.uid, animal.id )
                       }
                     />
-                  ) : ''} */}
+                  ) : ''}
                 </Fragment>
               </Card.Content>
             </Card>
@@ -124,7 +104,8 @@ class AnimalsList extends Component {
 }
 const mapStateToProps = state => ({
   animals: state.animals.animals,
-  user: state.auth.user
+  user: state.auth.user,
+  favAnimals: state.auth.favAnimals
 });
 
 const mapDispatchToProps = {
