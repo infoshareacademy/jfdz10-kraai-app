@@ -41,7 +41,7 @@ class ShelterProfile extends Component {
     const {shelter, propsRecive} = this.state;
     return propsRecive && shelter ? (
       <Fragment>
-      <Link to="/shelters"><Icon name="arrow left" size="big" float='left'/></Link>
+      <Icon name="arrow left" size="big" float='left' onClick={() => this.props.history.goBack()} style={{cursor: 'pointer', margin: '10px'}}/>
         <div className="PetProfile">
           <HeaderCard name={shelter.name} />
         </div>
@@ -58,6 +58,8 @@ class ShelterProfile extends Component {
             street={shelter.address.street}
             streetNumber={shelter.address.streetNumber}
             postCode={shelter.address.postCode}
+            id={shelter.id}
+            animalsId={shelter.animalsId || []}
           />
         </div>
       </Fragment>
