@@ -6,6 +6,7 @@ export const PASSWORD_INPUT_CHANGE = "PASSWORD_INPUT_CHANGE";
 export const CLEAR_INPUTS = "CLEAR_INPUTS";
 export const LOG_OUT = "LOG_OUT";
 
+
 export const startListeningToAuthChange = () => dispatch => {
   authRef.onAuthStateChanged(user => {
     if (user) {
@@ -92,3 +93,15 @@ export const logOut = () => dispatch => {
     })
   );
 };
+
+export const addToFavorite = (userID, animalID) => (dispatch, getState) => {
+  const userFavAnimals = getState().auth.user.favAnimalId 
+  
+  usersRef.child(userID + '/favAnimalId' ).push(animalID)
+}
+
+export const removeFromFavorite = (userID, animalID) => (dispatch, getState) => {
+  const userFavAnimals = getState().auth.user.favAnimalId 
+  const filteredFav = Object.keys(userFavAnimals).filter(key => userFavAnimals[key] !== animalID)
+  usersRef.child(userID  ).set({favAnimalId: filteredFav})
+}

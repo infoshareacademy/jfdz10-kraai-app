@@ -3,10 +3,12 @@ import {connect} from 'react-redux'
 import { Card, Image, Icon } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
 import "./AnimalsList.css";
-import firebase from 'firebase';
+
 
 import AnimalsFilter from "./AnimalsFilter";
 import {fetchAnimals} from '../../actions/animals'
+import {addToFavorite,
+  removeFromFavorite} from '../../actions/auth'
 
 
 const user = () =>
@@ -31,10 +33,10 @@ class AnimalsList extends Component {
   componentDidMount() {
     this.props.fetchAnimals()
     
-    user().then(user => this.setState({ user }));
+    
   
       this.setState({
-        userFavoriteAnimals: JSON.parse(localStorage.getItem("userFav") || [])
+        userFavoriteAnimals: this.props.user.favAnimalId || []
       });
     
   }
@@ -67,7 +69,10 @@ class AnimalsList extends Component {
   }
 
   render() {
+    const {user, addToFavorite,
+      removeFromFavorite} =this.props
     const { userFavoriteAnimals } = this.state;
+    console.log(userFavoriteAnimals)
     return (
       <Fragment>
         <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
@@ -85,21 +90,16 @@ class AnimalsList extends Component {
                     <Card.Description>{animal.description}</Card.Description>
                   </div>
 
-                  {!userFavoriteAnimals.some(
+                  {/* {user ? !userFavoriteAnimals.some(
                     favAnimal => favAnimal === animal.id
                   ) ? (
-                    <Icon
+                     <Icon
                       style={{ cursor: "pointer", float: "right" }}
                       name="heart outline"
                       color="black"
                       size="big"
                       onClick={e =>
-                        this.setState({
-                          userFavoriteAnimals: [
-                            ...userFavoriteAnimals,
-                            animal.id
-                          ]
-                        })
+                        addToFavorite(user.uid, animal.id )
                       }
                     />
                   ) : (
@@ -109,14 +109,10 @@ class AnimalsList extends Component {
                       color="red"
                       size="big"
                       onClick={e =>
-                        this.setState({
-                          userFavoriteAnimals: userFavoriteAnimals.filter(
-                            id => id !== animal.id
-                          )
-                        })
+                        removeFromFavorite(user.uid, animal.id )
                       }
                     />
-                  )}
+                  ) : ''} */}
                 </Fragment>
               </Card.Content>
             </Card>
@@ -128,10 +124,13 @@ class AnimalsList extends Component {
 }
 const mapStateToProps = state => ({
   animals: state.animals.animals,
+  user: state.auth.user
 });
 
 const mapDispatchToProps = {
-  fetchAnimals
+  fetchAnimals,
+  addToFavorite,
+  removeFromFavorite
 };
 
 export default connect(
