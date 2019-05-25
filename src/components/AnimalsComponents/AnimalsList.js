@@ -56,7 +56,6 @@ class AnimalsList extends Component {
     const {user, addToFavorite,
       removeFromFavorite, favAnimals} =this.props
     const { userFavoriteAnimals } = this.state;
-    console.log(userFavoriteAnimals)
     return (
       <Fragment>
         <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
