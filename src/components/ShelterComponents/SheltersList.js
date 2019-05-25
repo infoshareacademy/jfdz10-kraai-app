@@ -27,11 +27,14 @@ class SheltersList extends Component {
       const regionFilter = this.state.filters.region;
       const shelterCity = shelter.address.city;
       const cityFilter = this.state.filters.city;
+      
+      
 
       return (
         shelterNameLowercase.includes(nameFiltereLowercase) &&
         shelterRegion.includes(regionFilter) &&
-        shelterCity.includes(cityFilter)
+        shelterCity.includes(cityFilter) 
+        
       );
     });
   }
@@ -46,6 +49,7 @@ class SheltersList extends Component {
     );
   };
   render() {
+  
     return (
       <Fragment>
         <SheltersFilter
@@ -75,6 +79,7 @@ class SheltersList extends Component {
 
 const mapStateToProps = state => ({
   shelters: state.shelters.shelters,
+  animals: state.animals.animals
 });
 
 const mapDispatchToProps = {

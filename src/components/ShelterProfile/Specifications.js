@@ -1,5 +1,7 @@
 import React from "react";
-import { Divider, Header, Icon, Table } from "semantic-ui-react";
+import {Link} from 'react-router-dom'
+import { Divider, Header, Icon, Table , Button} from "semantic-ui-react";
+import AnimalList from "../AnimalsComponents/AnimalsList";
 
 const SpecificationsTable = props => (
   <div className="SpecTable">
@@ -39,6 +41,19 @@ const SpecificationsTable = props => (
         </Table.Row>
       </Table.Body>
     </Table>
+    <Divider horizontal>
+      <Header as="h4">
+        <Icon name="paw" />
+        Zwierzęta w schronisku
+      </Header>
+    </Divider>
+    {props.animalsId && props.animalsId.length === 0 ? (
+      <div style={{ margin: "auto", width: "100%", textAlign: "center" }}>
+        <span>W schronisku nie ma zwierząt</span>
+      </div>
+    ) : (
+      <AnimalList shelterPanelId={props.id} />
+    )}
   </div>
 );
 

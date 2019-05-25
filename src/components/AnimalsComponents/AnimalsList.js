@@ -38,6 +38,9 @@ class AnimalsList extends Component {
       const sexFilter = this.state.filter.sex;
       const animalId = animal.id
       const favAnimals =this.props.favAnimals
+      const shelterPanel = this.props.shelterPanelId ? this.props.shelters.find(shelter => shelter.id === this.props.shelterPanelId) : false
+      
+
       
 
       return (
@@ -45,7 +48,8 @@ class AnimalsList extends Component {
         (!kindFilter || animalKind.includes(kindFilter)) &&
         (!sizeFilter || animalSize === sizeFilter) &&
         (!sexFilter || animalSex === sexFilter) &&
-        (this.props.userPanel ?  favAnimals.map(({animalID}) => animalID).includes(animalId) : true)
+        (this.props.userPanel ?  favAnimals.map(({animalID}) => animalID).includes(animalId) : true) && 
+        (!!shelterPanel.animalsId ?  shelterPanel.animalsId.includes(animalId) : true) 
       );
     });
   }
@@ -108,7 +112,8 @@ class AnimalsList extends Component {
 const mapStateToProps = state => ({
   animals: state.animals.animals,
   user: state.auth.user,
-  favAnimals: state.auth.favAnimals
+  favAnimals: state.auth.favAnimals,
+  shelters: state.shelters.shelters
 });
 
 const mapDispatchToProps = {
