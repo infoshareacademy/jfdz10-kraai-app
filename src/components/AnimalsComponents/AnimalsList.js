@@ -2,10 +2,11 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Card, Image, Icon } from "semantic-ui-react";
 import { NavLink } from "react-router-dom";
+import "./Animals.css";
+
 import AnimalsFilter from "./AnimalsFilter";
 import { fetchAnimals } from "../../actions/animals";
 import { addToFavorite, removeFromFavorite } from "../../actions/auth";
-import "./Animals.css";
 
 class AnimalsList extends Component {
     state = {
@@ -16,34 +17,26 @@ class AnimalsList extends Component {
             sex: ""
         },
 
-  getFilteredAnimals() {
-    return this.props.animals.filter(animal => {
-      const animalNameLowercase = animal.name.toLowerCase();
-      const nameFilteredLowercase = this.state.filter.name.toLowerCase();
-      const animalKind = [animal.kindId];
-      const kindFilter = this.state.filter.kind;
-      const animalSize = animal.metrics.sizeId;
-      const sizeFilter = this.state.filter.size;
-      const animalSex = animal.metrics.sexId;
-      const sexFilter = this.state.filter.sex;
-      const animalId = animal.id
-      const favAnimals =this.props.favAnimals
-      const shelterPanel = this.props.shelterPanelId ? this.props.shelters.find(shelter => shelter.id === this.props.shelterPanelId) : false
-      
+        userFavoriteAnimals: []
+    };
 
-      
-
-      return (
-        animalNameLowercase.includes(nameFilteredLowercase) &&
-        (!kindFilter || animalKind.includes(kindFilter)) &&
-        (!sizeFilter || animalSize === sizeFilter) &&
-        (!sexFilter || animalSex === sexFilter) &&
-        (this.props.userPanel ?  favAnimals.map(({animalID}) => animalID).includes(animalId) : true) &&
-        (!!shelterPanel.animalsId ?  shelterPanel.animalsId.includes(animalId) : true) 
-      );
-    });
-  }
- 
+    getFilteredAnimals() {
+        return this.props.animals.filter(animal => {
+            const animalNameLowercase = animal.name.toLowerCase();
+            const nameFilteredLowercase = this.state.filter.name.toLowerCase();
+            const animalKind = [animal.kindId];
+            const kindFilter = this.state.filter.kind;
+            const animalSize = animal.metrics.sizeId;
+            const sizeFilter = this.state.filter.size;
+            const animalSex = animal.metrics.sexId;
+            const sexFilter = this.state.filter.sex;
+            const animalId = animal.id;
+            const favAnimals = this.props.favAnimals;
+            const shelterPanel = this.props.shelterPanelId
+                ? this.props.shelters.find(
+                      shelter => shelter.id === this.props.shelterPanelId
+                  )
+                : false;
 
             return (
                 animalNameLowercase.includes(nameFilteredLowercase) &&
@@ -54,31 +47,41 @@ class AnimalsList extends Component {
                     ? favAnimals
                           .map(({ animalID }) => animalID)
                           .includes(animalId)
+                    : true) &&
+                (!!shelterPanel.animalsId
+                    ? shelterPanel.animalsId.includes(animalId)
                     : true)
             );
         });
     }
 
-  render() {
-    const {user, addToFavorite,
-      removeFromFavorite, favAnimals} =this.props
-    
-    return (
-      <Fragment>
-        <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
-        <Card.Group doubling itemsPerRow={3} stackable>
-          {this.getFilteredAnimals().map(animal => (
-            <Card key={animal.id}>
-              <NavLink to={`/animals/${animal.id}`}>
-                <Image src={animal.avatar} height="300px" />
-              </NavLink>
+    render() {
+        const {
+            user,
+            addToFavorite,
+            removeFromFavorite,
+            favAnimals
+        } = this.props;
+
+        return (
+            <Fragment>
+                <AnimalsFilter
+                    onFilterChange={filter => this.setState({ filter })}
+                />
+                <Card.Group doubling itemsPerRow={3} stackable>
+                    {this.getFilteredAnimals().map(animal => (
+                        <Card key={animal.id}>
+                            <NavLink to={`/animals/${animal.id}`}>
+                                <Image src={animal.avatar} height="300px" />
+                            </NavLink>
 
                             <Card.Content>
                                 <Fragment>
                                     <div className="content__wrapper">
-                                        <Card.Header textAlign="center">
-                                            {animal.name}
-                                        </Card.Header>
+                                        <Card.Header>{animal.name}</Card.Header>
+                                        <Card.Description>
+                                            {animal.description}
+                                        </Card.Description>
                                     </div>
 
                                     {user ? (
@@ -126,15 +129,15 @@ class AnimalsList extends Component {
                         </Card>
                     ))}
                 </Card.Group>
-            </div>
+            </Fragment>
         );
     }
 }
 const mapStateToProps = state => ({
-  animals: state.animals.animals,
-  user: state.auth.user,
-  favAnimals: state.auth.favAnimals,
-  shelters: state.shelters.shelters
+    animals: state.animals.animals,
+    user: state.auth.user,
+    favAnimals: state.auth.favAnimals,
+    shelters: state.shelters.shelters
 });
 
 const mapDispatchToProps = {
