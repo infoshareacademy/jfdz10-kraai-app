@@ -127,7 +127,7 @@ class AnimalsList extends Component {
                                         )
                                     ) : (
                                         ""
-                                    )}{this.props.userPanel && (user.reservation ? user.reservation.lenght < 2 : true) ? <Icon
+                                    )}{this.props.userPanel && !user.reservation  ? <Icon
                       style={{ cursor: "pointer", float: "left" , width: 'auto'}}
                       name="signup"
                       size="big"

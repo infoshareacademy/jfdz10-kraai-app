@@ -49,7 +49,7 @@ class Nav extends Component {
                     Zwierzaki
                 </NavLink>
 
-                <NavLink
+                {/* <NavLink
                     className="item"
                     to="/add_animal"
                     name="animals"
@@ -71,7 +71,7 @@ class Nav extends Component {
                     }
                 >
                     Dodaj schronisko
-                </NavLink>
+                </NavLink> */}
 
                 <Menu.Menu position="right">
                     {user ? (
