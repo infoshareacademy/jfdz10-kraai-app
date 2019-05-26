@@ -4,14 +4,40 @@ import firebase from "firebase";
 import "./Dashboard.css";
 import Particles from "react-particles-js";
 import Chart from "react-apexcharts";
+import { refAnimals } from "../../config/firebase";
+import { refKind } from "../../config/firebase";
 
 class Dashboard extends Component {
     state = {
-        options: {
+        optionsAnimals: {
             chart: {
                 type: "donut"
             },
-            labels: ["kot", "pies", "szczur"],
+            labels: ["Kot", "Pies"],
+            legend: {
+                position: "bottom",
+                labels: {
+                    colors: "#fff"
+                },
+                fontSize: "16px",
+                fontFamily: "Lato"
+            },
+            theme: {
+                mode: "light",
+                palette: "palette3",
+                monochrome: {
+                    enabled: false,
+                    color: "#255aee",
+                    shadeTo: "light",
+                    shadeIntensity: 0.65
+                }
+            }
+        },
+        optionsShelter: {
+            chart: {
+                type: "donut"
+            },
+            labels: ["Warszawa", "Gdynia", "Katowice"],
             plotOptions: {},
             legend: {
                 position: "bottom",
@@ -32,9 +58,25 @@ class Dashboard extends Component {
                 }
             }
         },
-        animals: [55, 13, 33],
-        shelters: [5, 60, 15]
+        animals: [2, 4],
+        shelters: [2, 1, 1],
+        animalsId: [],
+        kind: []
     };
+
+    componentDidMount() {
+        refAnimals.on("value", snapshot =>
+            this.setState({
+                animalsId: snapshot.val().map(animal => animal.kindId)
+            })
+        );
+
+        refKind.on("value", snapshot =>
+            this.setState({
+                kind: snapshot.val()
+            })
+        );
+    }
 
     render() {
         return (
@@ -156,7 +198,7 @@ class Dashboard extends Component {
 
                 <div className="stats">
                     <Chart
-                        options={this.state.options}
+                        options={this.state.optionsAnimals}
                         series={this.state.animals}
                         type="donut"
                         width="500"
@@ -165,7 +207,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="stats_2">
                     <Chart
-                        options={this.state.options}
+                        options={this.state.optionsShelter}
                         series={this.state.shelters}
                         type="donut"
                         width="500"
