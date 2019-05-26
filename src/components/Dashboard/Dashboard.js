@@ -11,9 +11,29 @@ class Dashboard extends Component {
             chart: {
                 type: "donut"
             },
-            labels: ["kot", "pies", "dupa", "szczur"]
+            labels: ["kot", "pies", "szczur"],
+            plotOptions: {},
+            legend: {
+                position: "bottom",
+                labels: {
+                    colors: "#fff"
+                },
+                fontSize: "16px",
+                fontFamily: "Lato"
+            },
+            theme: {
+                mode: "light",
+                palette: "palette3",
+                monochrome: {
+                    enabled: false,
+                    color: "#255aee",
+                    shadeTo: "light",
+                    shadeIntensity: 0.65
+                }
+            }
         },
-        series: [44, 55, 13, 33]
+        animals: [55, 13, 33],
+        shelters: [5, 60, 15]
     };
 
     render() {
@@ -137,20 +157,19 @@ class Dashboard extends Component {
                 <div className="stats">
                     <Chart
                         options={this.state.options}
-                        series={this.state.series}
+                        series={this.state.animals}
                         type="donut"
-                        width="400"
-                        height="300"
+                        width="500"
+                        height="400"
                     />
                 </div>
-
                 <div className="stats_2">
                     <Chart
                         options={this.state.options}
-                        series={this.state.series}
+                        series={this.state.shelters}
                         type="donut"
-                        width="400"
-                        height="300"
+                        width="500"
+                        height="400"
                     />
                 </div>
             </div>
