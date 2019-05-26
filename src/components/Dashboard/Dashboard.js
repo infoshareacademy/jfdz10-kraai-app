@@ -58,8 +58,8 @@ class Dashboard extends Component {
                 }
             }
         },
-        animals: [2, 4],
-        shelters: [2, 1, 1],
+        animals: [3, 3],
+        shelters: [3, 2, 1],
         animalsId: [],
         kind: []
     };
