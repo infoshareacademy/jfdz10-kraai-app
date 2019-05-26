@@ -135,13 +135,13 @@ class UserPanel extends Component {
                 path="/profil/mydata"
                 component={() => <MyData/>}
               />
-              {/* <Route
+              <Route
                 exact
                 path="/profil/myanimals"
                 component={() => (
                   <MyAnimals/>
                 )}
-              /> */}
+              />
               <Route
                 exact
                 path="/profil/favorites"

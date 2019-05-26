@@ -6,7 +6,7 @@ import "./Animals.css";
 
 import AnimalsFilter from "./AnimalsFilter";
 import { fetchAnimals } from "../../actions/animals";
-import { addToFavorite, removeFromFavorite } from "../../actions/auth";
+import { addToFavorite, removeFromFavorite, addReservation } from "../../actions/auth";
 
 class AnimalsList extends Component {
     state = {
@@ -32,11 +32,12 @@ class AnimalsList extends Component {
             const sexFilter = this.state.filter.sex;
             const animalId = animal.id;
             const favAnimals = this.props.favAnimals;
-            const shelterPanel = this.props.shelterPanelId
+            const shelterPanel = this.props.shelterPanelId >= 0
                 ? this.props.shelters.find(
                       shelter => shelter.id === this.props.shelterPanelId
                   )
                 : false;
+                
 
             return (
                 animalNameLowercase.includes(nameFilteredLowercase) &&
@@ -50,7 +51,8 @@ class AnimalsList extends Component {
                     : true) &&
                 (!!shelterPanel.animalsId
                     ? shelterPanel.animalsId.includes(animalId)
-                    : true)
+                    : true)&&
+                    !animal.adopted
             );
         });
     }
@@ -60,7 +62,8 @@ class AnimalsList extends Component {
             user,
             addToFavorite,
             removeFromFavorite,
-            favAnimals
+            favAnimals,
+            addReservation
         } = this.props;
 
         return (
@@ -70,7 +73,8 @@ class AnimalsList extends Component {
                 />
                 <Card.Group doubling itemsPerRow={3} stackable>
                     {this.getFilteredAnimals().map(animal => (
-                        <Card key={animal.id}>
+                        <Card key={animal.id} >
+                        {animal.reserved ? <div style={{width: '100%', height: '100%', backgroundColor: 'red', zIndex: '100', opacity: '0.7', position: 'absolute', textAlign: 'center', paddingTop: '50%', color: 'white', fontSize: '2rem'}}>Rezerwacja</div> : ''}
                             <NavLink to={`/animals/${animal.id}`}>
                                 <Image src={animal.avatar} height="300px" />
                             </NavLink>
@@ -123,7 +127,12 @@ class AnimalsList extends Component {
                                         )
                                     ) : (
                                         ""
-                                    )}
+                                    )}{this.props.userPanel && (user.reservation ? user.reservation.lenght < 2 : true) ? <Icon
+                      style={{ cursor: "pointer", float: "left" , width: 'auto'}}
+                      name="signup"
+                      size="big"
+                      onClick={()=> addReservation(animal.id)}
+                    > <p style={{float: 'left'}}>Rezerwuj</p></Icon> : ''}
                                 </Fragment>
                             </Card.Content>
                         </Card>
@@ -143,7 +152,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     fetchAnimals,
     addToFavorite,
-    removeFromFavorite
+    removeFromFavorite,
+    addReservation
 };
 
 export default connect(

@@ -1,4 +1,4 @@
-import { authRef, usersRef, providerGoogle } from "../config/firebase";
+import { authRef, usersRef, providerGoogle , refAnimals } from "../config/firebase";
 
 export const SIGN_IN_UP = "SIGN_IN_UP";
 export const EMAIL_INPUT_CHANGE = "EMAIL_INPUT_CHANGE";
@@ -115,5 +115,19 @@ export const removeFromFavorite = (userID, animalID) => (dispatch, getState) => 
 
 export const changeUserData = ( nick, region) => (dispatch, getState) => {
   usersRef.child(getState().auth.user.uid).update({displayName: nick, region})
-  
 } 
+
+export const addReservation = (animalID) => (dispatch, getState) => {
+  usersRef.child(getState().auth.user.uid).update({reservation: animalID})
+  refAnimals.child(animalID).update({reserved: true})
+}
+export const removeReservation = (animalID) => (dispatch, getState) => {
+  usersRef.child(getState().auth.user.uid).update({reservation: null})
+  refAnimals.child(animalID).update({reserved: false})
+}
+
+export const adopt = (animalID) => (dispatch, getState) => {
+  refAnimals.child(animalID).update({adopted: true});
+  refAnimals.child(animalID).update({reserved: false})
+  usersRef.child(getState().auth.user.uid).update({reservation: null})
+}
