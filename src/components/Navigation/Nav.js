@@ -49,6 +49,30 @@ class Nav extends Component {
                     Zwierzaki
                 </NavLink>
 
+                <NavLink
+                    className="item"
+                    to="/add_animal"
+                    name="animals"
+                    active={activeItem === "animals"}
+                    onClick={event =>
+                        activeItemChange(event.currentTarget.name)
+                    }
+                >
+                    Dodaj zwierzaka
+                </NavLink>
+
+                <NavLink
+                    className="item"
+                    to="/add_shelter"
+                    name="animals"
+                    active={activeItem === "animals"}
+                    onClick={event =>
+                        activeItemChange(event.currentTarget.name)
+                    }
+                >
+                    Dodaj schronisko
+                </NavLink>
+
                 <Menu.Menu position="right">
                     {user ? (
                         <Fragment>

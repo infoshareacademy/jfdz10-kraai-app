@@ -3,6 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+        "@material-ui/core": "^4.0.0",
+        "@material-ui/icons": "^4.0.0",
         "apexcharts": "^3.6.12",
         "firebase": "^5.9.3",
         "react": "^16.8.4",
