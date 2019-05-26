@@ -1,25 +1,18 @@
-import React, {Component} from "react";
-import { Divider, Header, Icon, Table } from "semantic-ui-react";
-import firebase from 'firebase'
+import React, {Component, Fragment} from "react";
+import {NavLink} from 'react-router-dom'
+import {connect} from 'react-redux'
+import { Divider, Header, Icon, Table, Card, Image } from "semantic-ui-react";
 
-const animalShelter = fetch("https://petlove-454b4.firebaseio.com/shelters.json").then(response =>
-  response.json()
-);
 
 class SpecificationsTable extends Component{
-state= {
-  shelters: []
-}
 
-componentDidMount() {
-  animalShelter.then(shelters => this.setState({shelters}))
-}
+
 
 
 render(){
   const props = this.props
-  const {shelters} = this.state
-  
+  const animalShelter = props.shelters.find(shelter => shelter.id === props.shelterId)
+  console.log(animalShelter)
   return(
   <div className="SpecTable">
     <Divider horizontal>
@@ -65,10 +58,26 @@ render(){
         W schronisku
       </Header>
     </Divider>
-    <div>{console.log(shelters.find(({id}) => id === props.shelter))}</div>
+    {animalShelter ? 
+    <Card>
+              <NavLink to={`/shelters/${animalShelter.id}`} name="shelter">
+                <Image src={animalShelter.avatar} />
+              </NavLink>
+
+              <Card.Content>
+                <Fragment>
+                  <Card.Header>{animalShelter.name}</Card.Header>
+                  <Card.Meta>{animalShelter.address.region}</Card.Meta>
+                  <Card.Description>{animalShelter.address.city}</Card.Description>
+                </Fragment>
+              </Card.Content>
+            </Card> : 'nie ma schroniska'}
   </div>
   )
 }
 };
 
-export default SpecificationsTable;
+const mapStateToProps = state => ({
+  shelters: state.shelters.shelters
+})
+export default connect(mapStateToProps)(SpecificationsTable);

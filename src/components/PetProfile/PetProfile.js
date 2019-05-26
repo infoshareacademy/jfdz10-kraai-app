@@ -104,12 +104,12 @@ class PetProfile extends Component {
     const pet = this.state.pet;
     return (
       <Fragment>
-      <button onClick={() => this.props.history.goBack()}><Icon name="arrow left" size="big" float='left'/></button>
+      <Icon name="arrow left" size="big" float='left' onClick={() => this.props.history.goBack()} style={{cursor: 'pointer', margin: '10px'}}/>
         <div className="PetProfile">
           <HeaderCard name={pet.name} /> 
         </div>
         <div className="main">
-       
+
           <PetCard
             name={pet.name}
             avatar={pet.avatar}
@@ -124,7 +124,7 @@ class PetProfile extends Component {
             age={pet.metrics.age}
             sex={this.state.sex.pl}
             bread={this.state.bread.pl}
-            shelter={this.state.pet.shelterId}
+            shelterId={this.state.pet.shelterId}
           />
         </div>
       </Fragment>

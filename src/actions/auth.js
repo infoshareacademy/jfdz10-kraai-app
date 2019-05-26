@@ -5,6 +5,7 @@ export const EMAIL_INPUT_CHANGE = "EMAIL_INPUT_CHANGE";
 export const PASSWORD_INPUT_CHANGE = "PASSWORD_INPUT_CHANGE";
 export const CLEAR_INPUTS = "CLEAR_INPUTS";
 export const LOG_OUT = "LOG_OUT";
+export const CHANGE_USER_DATA = "CHANGE_USER_DATA"
 
 
 export const startListeningToAuthChange = () => dispatch => {
@@ -111,3 +112,8 @@ export const removeFromFavorite = (userID, animalID) => (dispatch, getState) => 
   usersRef.child(userID + '/favAnimalId/' + animalToDelete.id).remove()
   }
 }
+
+export const changeUserData = ( nick, region) => (dispatch, getState) => {
+  usersRef.child(getState().auth.user.uid).update({displayName: nick, region})
+  
+} 
