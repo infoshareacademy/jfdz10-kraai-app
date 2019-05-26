@@ -31,7 +31,7 @@ class UserPanelNav extends Component{
             />
             <Menu.Item
               name="Ulubione"
-              active={activeItem === "favorites"}
+              active={activeItem === "Ulubione"}
               onClick={this.handleItemClick}
               as={NavLink}
               to="./favorites"

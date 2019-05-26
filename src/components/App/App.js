@@ -15,11 +15,13 @@ import { startListeningToAuthChange } from "../../actions/auth";
 import { compose } from "redux";
 import { authRef } from "../../config/firebase";
 import { fetchShelters } from "../../actions/shelters";
+import {fetchAnimals} from '../../actions/animals'
 
 class App extends Component {
     componentDidMount() {
         this.props.startListeningToAuthChange();
         this.props.fetchShelters();
+        this.props.fetchAnimals();
     }
 
     render() {
@@ -52,7 +54,8 @@ class App extends Component {
 
 const mapDispatchToProps = {
     startListeningToAuthChange,
-    fetchShelters
+    fetchShelters,
+    fetchAnimals
 };
 
 export default withRouter(

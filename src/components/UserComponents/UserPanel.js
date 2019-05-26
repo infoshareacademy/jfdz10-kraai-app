@@ -15,15 +15,8 @@ import { Grid, Image, Button, Input , Icon} from "semantic-ui-react";
 
 const avatarPlaceholder = "/avatar-placeholder.png";
 
-const fetchUser = () => fetch("/user.json").then(response => response.json());
-const fetchAnimals = () =>
-  fetch("https://petlove-454b4.firebaseio.com/animals.json").then(response =>
-    response.json()
-  );
 class UserPanel extends Component {
   state = {
-    user: {},
-    animals: [],
     file: '',
   };
 
@@ -59,11 +52,6 @@ class UserPanel extends Component {
         .catch(error => console.error(error));
     }
   };
-
-  componentDidMount() {
-    fetchUser().then(user => this.setState({ user }));
-    fetchAnimals().then(animal => this.setState({ animals: animal }));
-  }
 
   clearInputFile = () => {
     this.setState({
@@ -145,25 +133,21 @@ class UserPanel extends Component {
               <Route
                 exact
                 path="/profil/mydata"
-                component={() => <MyData user={this.state.user} />}
+                component={() => <MyData/>}
               />
-              <Route
+              {/* <Route
                 exact
                 path="/profil/myanimals"
                 component={() => (
-                  <MyAnimals
-                    animals={this.state.animals}
-                    user={this.state.user}
-                  />
+                  <MyAnimals/>
                 )}
-              />
+              /> */}
               <Route
                 exact
                 path="/profil/favorites"
                 component={() => (
                   <Favorites
-                    animals={this.state.animals}
-                    user={this.state.user}
+                    animals={this.props.animals}
                   />
                 )}
               />
@@ -178,7 +162,8 @@ class UserPanel extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user
+  user: state.auth.user,
+  animals: state.animals.animals
 });
 
 const mapDispatchToProps = {};

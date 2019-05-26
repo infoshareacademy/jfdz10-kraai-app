@@ -1,4 +1,4 @@
-import {SIGN_IN_UP, EMAIL_INPUT_CHANGE, PASSWORD_INPUT_CHANGE, CLEAR_INPUTS, LOG_OUT} from '../actions/auth'
+import {SIGN_IN_UP, EMAIL_INPUT_CHANGE, PASSWORD_INPUT_CHANGE, CLEAR_INPUTS, LOG_OUT, CHANGE_USER_DATA} from '../actions/auth'
 
 const initialState = {
      emailInput : '',

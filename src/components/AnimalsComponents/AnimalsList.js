@@ -22,10 +22,6 @@ class AnimalsList extends Component {
     userFavoriteAnimals: []
   };
 
-  componentDidMount() {
-    this.props.fetchAnimals()
-  }
-
   getFilteredAnimals() {
     return this.props.animals.filter(animal => {
       const animalNameLowercase = animal.name.toLowerCase();
@@ -48,7 +44,7 @@ class AnimalsList extends Component {
         (!kindFilter || animalKind.includes(kindFilter)) &&
         (!sizeFilter || animalSize === sizeFilter) &&
         (!sexFilter || animalSex === sexFilter) &&
-        (this.props.userPanel ?  favAnimals.map(({animalID}) => animalID).includes(animalId) : true) && 
+        (this.props.userPanel ?  favAnimals.map(({animalID}) => animalID).includes(animalId) : true) &&
         (!!shelterPanel.animalsId ?  shelterPanel.animalsId.includes(animalId) : true) 
       );
     });
@@ -59,7 +55,7 @@ class AnimalsList extends Component {
   render() {
     const {user, addToFavorite,
       removeFromFavorite, favAnimals} =this.props
-    const { userFavoriteAnimals } = this.state;
+    
     return (
       <Fragment>
         <AnimalsFilter onFilterChange={filter => this.setState({ filter })} />
